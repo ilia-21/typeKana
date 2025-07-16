@@ -1,8 +1,18 @@
 import { alphabets, type letterGroup, type letterSubGroup } from "./consts";
+import { groupKeybinds, subGroupKeybinds } from "./keybinds";
 
 export const selectedGroups = new Set();
 
 function createSubGroupElement(subGroup: letterSubGroup) {
+	const toggleSubGroup = () => {
+		const isSelected = subGroupDiv.classList.toggle("selected");
+		if (isSelected) {
+			selectedGroups.add(subGroup.title);
+		} else {
+			selectedGroups.delete(subGroup.title);
+			subGroupDiv.parentElement!.classList.remove("selected");
+		}
+	};
 	const subGroupDiv = document.createElement("div")!;
 	subGroupDiv.classList.add("alphabetSubGroup");
 
@@ -11,45 +21,43 @@ function createSubGroupElement(subGroup: letterSubGroup) {
 	subGroupDiv.appendChild(subGroupTitle);
 
 	subGroupDiv.addEventListener("click", () => {
-		const isSelected = subGroupDiv.classList.toggle("selected");
-		if (isSelected) {
-			selectedGroups.add(subGroup.title);
-		} else {
-			selectedGroups.delete(subGroup.title);
-			subGroupDiv.parentElement!.classList.remove("selected");
-		}
+		toggleSubGroup();
 	});
+	subGroupKeybinds[subGroup.title.charAt(0)] = toggleSubGroup;
 
 	return subGroupDiv;
 }
 
-function createGroupElement(group: letterGroup) {
-	const groupDiv = document.createElement("div");
-	groupDiv.classList.add("alphabetGroup");
-
-	const groupTitle = document.createElement("p");
-	groupTitle.textContent = group.title;
-	groupDiv.appendChild(groupTitle);
-
-	for (const subGroup of group.groups) {
-		const subGroupElement = createSubGroupElement(subGroup);
-		groupDiv.appendChild(subGroupElement);
-	}
-
-	groupTitle.addEventListener("click", () => {
+function createGroupElement(group: letterGroup, index: number) {
+	const toggleGroup = () => {
 		const isSelected = groupDiv.classList.toggle("selected");
 		for (const sg of groupDiv.children) {
 			if (!sg.classList.contains("alphabetSubGroup")) continue;
 
 			if (isSelected) {
 				sg.classList.add("selected");
-				selectedGroups.add((sg.children[0] as HTMLParagraphElement).innerText.split(" ")[0]);
+				selectedGroups.add(sg.children[0].innerHTML.split(" ")[0]);
 			} else {
-				selectedGroups.delete((sg.children[0] as HTMLParagraphElement).innerText.split(" ")[0]);
 				sg.classList.remove("selected");
+				selectedGroups.delete(sg.children[0].innerHTML.split(" ")[0]);
 			}
 		}
+	};
+	const groupDiv = document.createElement("div");
+	groupDiv.classList.add("alphabetGroup");
+
+	const groupTitle = document.createElement("p");
+	groupTitle.textContent = `${group.title} [Shift + ${index + 1}]`;
+	groupDiv.appendChild(groupTitle);
+
+	for (const subGroup of group.groups) {
+		const subGroupElement = createSubGroupElement(subGroup);
+		groupDiv.appendChild(subGroupElement);
+	}
+	groupTitle.addEventListener("click", () => {
+		toggleGroup();
 	});
+	groupKeybinds[index + 1] = toggleGroup;
 
 	return groupDiv;
 }
@@ -62,8 +70,8 @@ function createAlphabetSection(title: string, groups: letterGroup[]) {
 	alphabetTitle.textContent = title;
 	alphabetDiv.appendChild(alphabetTitle);
 
-	for (const group of groups) {
-		const groupElement = createGroupElement(group);
+	for (const groupIndex in groups) {
+		const groupElement = createGroupElement(groups[groupIndex], Number(groupIndex));
 		alphabetDiv.appendChild(groupElement);
 	}
 

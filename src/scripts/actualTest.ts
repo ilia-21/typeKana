@@ -1,6 +1,6 @@
 import { alphabets, cheerStrings, currentAlphabet, type letterPair } from "./consts";
 import { selectedGroups } from "./startPage";
-import { getRandomElement, setScreen } from "./utils";
+import { convertCharacter, getRandomElement, setScreen } from "./utils";
 
 let lettersArray: letterPair[] = [];
 
@@ -11,6 +11,7 @@ interface stats {
 	longestCombo: number;
 	characters: {
 		[title: string]: {
+			mistakes: number;
 			time: number;
 		};
 	};
@@ -89,15 +90,31 @@ const showCheer = (isNegative: boolean, text: string) => {
 		cheerElement.remove();
 	});
 };
-
 const nextCharacter = () => {
 	const currCard = document.getElementById("current")!;
 	const inputField = currCard.children[1] as HTMLInputElement;
-	const timeTook = Date.now() - stats.startTime;
-	stats.characters[lettersArray[currentCharacterID].romanji] = { time: timeTook };
+	let timeTook = Date.now() - stats.startTime;
+	const currentCharacter = lettersArray[currentCharacterID];
+	const currentCharacterRomanji = stats.characters[currentCharacter.romanji];
+
+	if (!currentCharacterRomanji) {
+		stats.characters[currentCharacter.romanji] = { time: timeTook, mistakes: 0 };
+	} else {
+		if (currentCharacterRomanji.mistakes > 0) {
+			stats.characters[currentCharacter.romanji].time += timeTook;
+		} else {
+			currentCharacterRomanji.time = timeTook;
+		}
+	}
 
 	stats.startTime = Date.now();
-	inputField.value == lettersArray[currentCharacterID].romanji ? triggerCorrect() : triggerIncorrect();
+	//Sometimes theres a stray space in there
+	if (inputField.value.replaceAll(" ", "") == currentCharacter.romanji) {
+		triggerCorrect();
+	} else {
+		triggerIncorrect();
+		stats.characters[currentCharacter.romanji].mistakes++;
+	}
 
 	comboText.innerHTML = `Combo:${stats.currentCombo}`;
 
@@ -145,15 +162,24 @@ const showResultsScreen = () => {
 		element.innerHTML = text;
 		resultNotes.append(element);
 	};
-	//Switch screen to test
+	// Switch screen to test
 	document.getElementById("actualTest")!.classList.add("hidden");
 	resultsScreen.classList.remove("hidden");
 
-	//Generate results
+	// Generate results
 	addResultNote(`You longest combo was: ${stats.longestCombo}`);
+	let hardest: { character: string; mistakes: number } = { character: "none", mistakes: 0 };
 	for (const stat of Object.keys(stats.characters)) {
-		addResultNote(`${stat} took you ${stats.characters[stat].time / 1000}s`);
+		const currentCharacter = stats.characters[stat];
+		// Results: how much time it took for each character
+		addResultNote(`${convertCharacter("letter", stat)} took you ${(currentCharacter.time / 1000).toFixed(2)}s${currentCharacter.mistakes > 0 ? ` and ${currentCharacter.mistakes}` : ""} tries`);
+
+		// While we are going through all the characters find the one with most mistakes
+		if (currentCharacter.mistakes > hardest.mistakes) hardest = { character: stat, mistakes: currentCharacter.mistakes };
 	}
+	// Results: character with most mistakes
+	addResultNote(`Hardest character for you was ${convertCharacter("letter", hardest.character)}, you got it after ${hardest.mistakes} tries`);
+	console.log(stats);
 };
 //Mods:
 //Perfect: restart on incorrect
