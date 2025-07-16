@@ -1,7 +1,8 @@
 import { startTest } from "./actualTest";
 import { setScreen } from "./utils";
 
-const helpPageContainer = document.getElementById("helpPageContainer")!;
+export const helpPageContainer = document.getElementById("helpPageContainer")!;
+export const modsPopup = document.getElementById("modsPopup")!;
 
 export const setButtons = () => {
 	document.getElementById("helpBtn")!.addEventListener("click", () => {
@@ -9,6 +10,9 @@ export const setButtons = () => {
 	});
 	document.getElementById("startBtn")!.addEventListener("click", () => {
 		startTest();
+	});
+	document.getElementById("modsBtn")!.addEventListener("click", () => {
+		modsPopup.classList.toggle("hidden");
 	});
 	document.getElementById("resultsRetryBtn")!.addEventListener("click", () => {
 		startTest();

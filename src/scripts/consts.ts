@@ -1,3 +1,5 @@
+import type { mod } from "./actualTest";
+
 export interface letterPair {
 	romanji: string;
 	letter: string;
@@ -76,7 +78,7 @@ export const alphabets: alphabets = {
 							letter: "さ",
 						},
 						{
-							romanji: "si",
+							romanji: "shi",
 							letter: "し",
 						},
 						{
@@ -148,7 +150,7 @@ export const alphabets: alphabets = {
 					letters: [
 						{
 							romanji: "ha",
-							letter: "か",
+							letter: "は",
 						},
 						{
 							romanji: "hi",
@@ -400,3 +402,9 @@ export const cheerStrings: cheerStrings = {
 	positive: ["Good job!", "Correct!", "Nice!"],
 };
 export let currentAlphabet = "hiragana";
+export const mods: { short: mod; title: string; description: string }[] = [
+	{ short: "KT", title: "Keep Trying", description: "Retry each character until you name it correctly" },
+	{ short: "PF", title: "Perfect", description: "Restarts if you make a single mistake" },
+	{ short: "R", title: "Random", description: "Shuffles characters" },
+	{ short: "TT", title: "Time Trials", description: "Limit how much time you have to name a character. 0 to disable" },
+];

@@ -53,10 +53,47 @@ input {
 	width: inherit;
 	text-align: center;
 }
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+input[type="number"] {
+	/* Really, firefox? */
+	-moz-appearance: textfield;
+}
+input[type="checkbox"] {
+	appearance: none;
+	background: transparent;
+	border: 2px solid var(--jap-accent);
+	border-radius: 4px;
+	cursor: pointer;
+	aspect-ratio: 1/1;
+}
+input[type="checkbox"]:checked {
+	position: relative;
+}
+
+input[type="checkbox"]:checked::before {
+	content: "O"; /* Because O is "Correct" in Japan */
+	color: var(--jap-accent);
+	text-align: center;
+}
+
 #content,
 #resultsScreen {
 	margin: 0 auto;
 	max-width: 960px;
+}
+#resultsNotes {
+	width: 40%;
+	max-height: 410px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	p {
+		margin: 0.2em;
+	}
 }
 .alphabet {
 	background-color: var(--jap-bg-dark);
@@ -97,6 +134,16 @@ input {
 .alphabet > .selected {
 	border: 1px solid var(--jap-accent);
 }
+
+#resultsStats {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	min-height: 540px;
+}
+#resultsRank {
+	font-size: 4em;
+}
 .button,
 #buttonsRow > p,
 #resultsButtons > p {
@@ -118,7 +165,8 @@ input {
 	justify-content: center;
 	cursor: pointer;
 }
-#helpPageContainer {
+#helpPageContainer,
+#modsPopup {
 	position: absolute;
 	width: 100%;
 	height: 100%;
@@ -141,6 +189,9 @@ input {
 }
 .hidden {
 	display: none !important;
+}
+.yes-transition {
+	transition: all 2s ease-in-out !important;
 }
 .no-transition {
 	transition: none !important;
@@ -172,6 +223,16 @@ input {
 		left: 1rem;
 		bottom: 1rem;
 	}
+	#accuracyText {
+		top: 1rem;
+		right: 1rem;
+	}
+	#modsDisplay {
+		position: absolute;
+		font-size: small;
+		bottom: 1rem;
+		right: 1rem;
+	}
 	.cheer {
 		top: 20%;
 		opacity: 100%;
@@ -180,7 +241,107 @@ input {
 	}
 }
 #comboText,
+#accuracyText,
 .cheer {
 	position: absolute;
 	font-size: 2rem;
+}
+@keyframes shine {
+	0% {
+		background-position: 0%;
+	}
+	100% {
+		background-position: 100%;
+	}
+}
+@keyframes test {
+	0% {
+		text-shadow: 0 0 10px #fc466b, 0 0 30px #3f5efb;
+	}
+	50% {
+		text-shadow: 0 0 10px #3f5efb, 0 0 30px #fc466b;
+	}
+	100% {
+		text-shadow: 0 0 10px #fc466b, 0 0 30px #3f5efb;
+	}
+}
+@keyframes pulseGradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes glowPulse {
+	0%,
+	100% {
+		text-shadow: 0 0 10px rgba(255, 255, 255, 0.7), 0 0 20px rgba(0, 255, 255, 0.5);
+	}
+	50% {
+		text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(255, 0, 255, 0.7);
+	}
+}
+#modsScreen {
+	max-width: 960px;
+	display: flex;
+	flex-wrap: wrap;
+	background: var(--jap-bg-dark);
+	padding: 1em;
+	h1 {
+		width: 100%;
+	}
+	div {
+		display: flex;
+		justify-content: space-between;
+		align-content: center;
+		width: 100%;
+		margin: 0.5em 0;
+		div {
+			display: flex;
+			flex-direction: column;
+			max-width: 40%;
+			p {
+				margin: 0;
+			}
+			p:nth-child(1) {
+				font-weight: bold;
+			}
+			p:nth-child(2) {
+				font-size: small;
+			}
+		}
+		input {
+			width: 5%;
+			font-size: 2em;
+		}
+	}
+}
+
+.special {
+	background: -webkit-linear-gradient(0deg, #fc466b 0%, #3f5efb 100%);
+	background-clip: border-box;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	width: fit-content;
+	text-shadow: 0 0 10px #fc466b, 0 0 30px #3f5efb;
+	animation: test 1s infinite linear;
+}
+.transcendedCard {
+	transition: 2s ease-in-out;
+	margin-bottom: 1em;
+	border: medium;
+	background: linear-gradient(270deg, rgb(0, 255, 224), rgb(255, 0, 200), rgb(255, 215, 0), rgb(0, 255, 224)) 0% 0% / 800% 800%;
+	animation: 6s infinite pulseGradient, 2s ease-in-out infinite glowPulse;
+	color: white;
+	font-size: 2rem;
+	text-shadow: white 0px 0px 10px, cyan 0px 0px 20px;
+}
+.transcendedCharacter {
+	background: linear-gradient(270deg, rgb(0, 255, 224), rgb(255, 0, 200), rgb(255, 215, 0), rgb(0, 255, 224)) 0% 0% / 800% 800% text;
+	-webkit-text-fill-color: transparent;
 }

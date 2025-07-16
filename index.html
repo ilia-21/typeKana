@@ -81,11 +81,15 @@
 				<p>い</p>
 				<input type="text" name="" id="romanjiInput" />
 			</div>
-			<p id="comboText">Combo:0</p>
+			<p id="accuracyText">100%</p>
+			<p id="comboText">0x</p>
+			<span id="modsDisplay"></span>
 		</div>
 		<div id="resultsScreen" class="hidden">
-			<h1>Good job!</h1>
-			<div id="resultsNotes"></div>
+			<div id="resultsStats">
+				<div id="resultsNotes"></div>
+				<h1 id="resultsRank">Good job!</h1>
+			</div>
 			<div id="resultsButtons">
 				<p id="resultsRetryBtn">
 					Try again<br />
@@ -107,6 +111,18 @@
 				<p>Of course! On the main page you can hit letter corresponding to group to toggle it. For example hit a, k, s and t to select first 4 rows of characters. On the test page hit space after typing romanji to accept and go to the next character. Hit backspace to go to the previous character. (use Ctrl+A to erase, it's 2025!)</p>
 				<h1>How to close this window?</h1>
 				<p>Esc</p>
+			</div>
+		</div>
+		<div id="modsPopup" class="hidden">
+			<div id="modsScreen">
+				<h1>Mods</h1>
+				<div id="timeTrialsMod">
+					<div>
+						<p>Time Trials</p>
+						<p>Limit how much seconds you have to name a character.<br />Unlocks <span class="special">Special</span> ranks when used with Perfect.<br />Set to 0 to disable</p>
+					</div>
+					<input type="number" name="" id="TTSeconds" value="0" />
+				</div>
 			</div>
 		</div>
 		<script type="module" src="/src/main.ts"></script>

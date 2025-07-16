@@ -1,4 +1,4 @@
-import { alphabets, type letterGroup, type letterSubGroup } from "./consts";
+import { alphabets, mods, type letterGroup, type letterSubGroup } from "./consts";
 import { groupKeybinds, subGroupKeybinds } from "./keybinds";
 
 export const selectedGroups = new Set();
@@ -84,4 +84,29 @@ const disclaimerText = document.getElementById("disclaimer")!;
 for (const alphabetName of Object.keys(alphabets)) {
 	const alphabetSection = createAlphabetSection(alphabetName, alphabets[alphabetName]);
 	contentDiv.insertBefore(alphabetSection, disclaimerText);
+}
+
+// Generate mods
+const modsDiv = document.getElementById("modsScreen")!;
+for (const mod of mods) {
+	if (mod.short == "TT") continue; // TT has special input, so skip it
+	const modDiv = document.createElement("div");
+	const modLeftContainer = document.createElement("div");
+
+	const modTitleElement = document.createElement("p");
+	modTitleElement.innerHTML = mod.title;
+	modLeftContainer.append(modTitleElement);
+
+	const modDescriptionElement = document.createElement("p");
+	modDescriptionElement.innerHTML = mod.description;
+	modLeftContainer.append(modDescriptionElement);
+
+	modDiv.append(modLeftContainer);
+
+	const modButton = document.createElement("input");
+	modButton.type = "checkbox";
+	modButton.id = `${mod.short}Selected`;
+
+	modDiv.append(modButton);
+	modsDiv.append(modDiv);
 }

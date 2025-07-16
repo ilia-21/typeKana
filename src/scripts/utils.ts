@@ -1,4 +1,6 @@
+import type { stats } from "./actualTest";
 import { alphabets } from "./consts";
+import { rankPrefix, ranks, rankSuffix } from "./ranks";
 
 export const shuffleArray = (array: any[]) => {
 	let currentIndex = array.length;
@@ -47,4 +49,46 @@ export const convertCharacter = (to: "romanji" | "letter", character: string) =>
 			}
 		}
 	}
+};
+export const calculateRank = (stats: stats, rankElement?: HTMLElement) => {
+	let finalRank = "";
+	for (const r of ranks) {
+		if (r.condition(stats)) {
+			finalRank = r.text;
+			break;
+		}
+	}
+	for (const p of rankPrefix) {
+		if (stats.failed) break;
+		if (p.condition(stats)) {
+			finalRank = `${p.text} ${finalRank}`;
+			rankElement && (rankElement.style = p.style as string);
+			break;
+		}
+	}
+	for (const s of rankSuffix) {
+		if (stats.failed) break;
+		if (finalRank.startsWith("Ascended")) {
+			finalRank.trimEnd();
+			break;
+		}
+		if (s.condition(stats)) {
+			finalRank = finalRank + s.text;
+			break;
+		}
+	}
+
+	rankElement && (rankElement.innerHTML = finalRank);
+	return finalRank;
+};
+//unused
+const detectTimeTrials = (stats: stats): number | boolean => {
+	// Even if TT wasn't enabled this will check if you had no mistakes and finished in time
+	let longest = 0;
+	for (const stat of Object.keys(stats.characters)) {
+		const currentStat = stats.characters[stat];
+		if (currentStat.mistakes > 0) return false;
+		if (currentStat.time / 1000 > longest / 1000) longest = currentStat.time / 1000;
+	}
+	return longest;
 };

@@ -1,12 +1,12 @@
 import { startTest } from "./actualTest";
+import { helpPageContainer, modsPopup } from "./buttons";
 import { currentScreen, setScreen } from "./utils";
 
 export const subGroupKeybinds: { [title: string]: () => void } = {};
 export const groupKeybinds: (() => void)[] = [];
 export const setkeybinds = () => {
 	document.addEventListener("keydown", (e) => {
-		const helpPageContainer = document.getElementById("helpPageContainer")!;
-		console.log(e);
+		//console.log(e);
 
 		// Keybinds for rows of letters
 		for (const subGroup of Object.keys(subGroupKeybinds)) {
@@ -15,9 +15,9 @@ export const setkeybinds = () => {
 
 		if (e.code == "Escape") {
 			// Esc when Help page is visible
-			if (!helpPageContainer.classList.contains("hidden")) {
-				helpPageContainer.classList.add("hidden");
-			}
+			if (!helpPageContainer.classList.contains("hidden")) helpPageContainer.classList.add("hidden");
+			if (!modsPopup.classList.contains("hidden")) modsPopup.classList.add("hidden");
+
 			// Esc to exit test
 			if (currentScreen == "test" || currentScreen == "results") setScreen("main");
 		}
