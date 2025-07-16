@@ -19,6 +19,7 @@ const startTest = () => {
 			}
 		}
 	}
+	if (lettersArray.length == 0) return;
 
 	//Prepare test
 	document.getElementById("actualTest").children[0].children[0].innerHTML = lettersArray[0][1];
@@ -122,3 +123,8 @@ const showResultsScreen = () => {
 		addResultNote(`${stat} took you ${stats.characters[stat].time / 1000}s`);
 	}
 };
+//Mods:
+//Perfect: restart on incorrect
+//Time limit
+//Retry: keep retrying character instead of sending to the end
+//Shuffle
