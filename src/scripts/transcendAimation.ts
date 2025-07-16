@@ -49,7 +49,14 @@ export const executeTranscendAnimation = async (stats: stats) => {
 	rankText.style.opacity = "100%";
 
 	await sleep(1000);
+	const notAcendedAnymore = () => {
+		letterCard.removeAttribute("style");
+		letterCard.classList.remove("transcendedCard");
+		rankText.removeAttribute("style");
+		comboText.removeAttribute("style");
+		accuracyText.removeAttribute("style");
+		modsDisplay.removeAttribute("style");
+	};
 	resultsButtons.style.opacity = "100%";
-
-	letterCard.style.opacity = "100%";
+	resultsButtons.addEventListener("click", notAcendedAnymore);
 };

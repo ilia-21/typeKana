@@ -286,6 +286,15 @@ input[type="checkbox"]:checked::before {
 		text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 40px rgba(255, 0, 255, 0.7);
 	}
 }
+@keyframes glowPulseSmall {
+	0%,
+	100% {
+		text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(0, 255, 255, 0.5);
+	}
+	50% {
+		text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 0, 255, 0.7);
+	}
+}
 #modsScreen {
 	max-width: 960px;
 	display: flex;
@@ -331,6 +340,20 @@ input[type="checkbox"]:checked::before {
 	text-shadow: 0 0 10px #fc466b, 0 0 30px #3f5efb;
 	animation: test 1s infinite linear;
 }
+.ascendedRank {
+	font-size: 2.5rem;
+	font-weight: 900;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	background: linear-gradient(270deg, rgb(0, 255, 224), rgb(255, 0, 200), rgb(255, 215, 0), rgb(0, 255, 224)) 0% 0% / 800% 800% padding-box text;
+	-webkit-text-fill-color: transparent;
+	animation: 6s infinite pulseGradient, 2s ease-in-out infinite glowPulse;
+	text-shadow: rgba(255, 255, 255, 0.9) 0px 0px 10px, rgba(0, 255, 255, 0.6) 0px 0px 20px, rgba(255, 0, 255, 0.6) 0px 0px 30px;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	border-radius: 12px;
+	padding: 0.5rem 1rem;
+	box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 15px, rgba(0, 255, 255, 0.3) 0px 0px 25px;
+}
 .transcendedCard {
 	transition: 2s ease-in-out;
 	margin-bottom: 1em;
@@ -344,4 +367,5 @@ input[type="checkbox"]:checked::before {
 .transcendedCharacter {
 	background: linear-gradient(270deg, rgb(0, 255, 224), rgb(255, 0, 200), rgb(255, 215, 0), rgb(0, 255, 224)) 0% 0% / 800% 800% text;
 	-webkit-text-fill-color: transparent;
+	animation: 6s infinite pulseGradient, 2s ease-in-out infinite glowPulseSmall;
 }

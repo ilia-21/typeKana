@@ -391,6 +391,198 @@ export const alphabets: alphabets = {
 				},
 			],
 		},
+		{
+			title: "Combined",
+			groups: [
+				{
+					title: "ky-",
+					letters: [
+						{
+							romanji: "kya",
+							letter: "きゃ",
+						},
+						{
+							romanji: "kyu",
+							letter: "きゅ",
+						},
+						{
+							romanji: "kyo",
+							letter: "きょ",
+						},
+					],
+				},
+				{
+					title: "sh-",
+					letters: [
+						{
+							romanji: "sha",
+							letter: "しゃ",
+						},
+						{
+							romanji: "shu",
+							letter: "しゅ",
+						},
+						{
+							romanji: "sho",
+							letter: "しょ",
+						},
+					],
+				},
+				{
+					title: "ch-",
+					letters: [
+						{
+							romanji: "cha",
+							letter: "ちゃ",
+						},
+						{
+							romanji: "chu",
+							letter: "ちゅ",
+						},
+						{
+							romanji: "cho",
+							letter: "ちょ",
+						},
+					],
+				},
+				{
+					title: "ny-",
+					letters: [
+						{
+							romanji: "nya",
+							letter: "にゃ",
+						},
+						{
+							romanji: "nyu",
+							letter: "にゅ",
+						},
+						{
+							romanji: "nyo",
+							letter: "にょ",
+						},
+					],
+				},
+				{
+					title: "hy-",
+					letters: [
+						{
+							romanji: "hya",
+							letter: "ひゃ",
+						},
+						{
+							romanji: "hyu",
+							letter: "ひゅ",
+						},
+						{
+							romanji: "hyo",
+							letter: "ひょ",
+						},
+					],
+				},
+				{
+					title: "my-",
+					letters: [
+						{
+							romanji: "mya",
+							letter: "みゃ",
+						},
+						{
+							romanji: "myu",
+							letter: "みゅ",
+						},
+						{
+							romanji: "myo",
+							letter: "みょ",
+						},
+					],
+				},
+				{
+					title: "ry-",
+					letters: [
+						{
+							romanji: "rya",
+							letter: "りゃ",
+						},
+						{
+							romanji: "ryu",
+							letter: "りゅ",
+						},
+						{
+							romanji: "ryo",
+							letter: "りょ",
+						},
+					],
+				},
+				{
+					title: "gy-",
+					letters: [
+						{
+							romanji: "gya",
+							letter: "ぎょ",
+						},
+						{
+							romanji: "gyu",
+							letter: "ぎゅ",
+						},
+						{
+							romanji: "gyo",
+							letter: "ぎょ",
+						},
+					],
+				},
+				{
+					title: "jy-",
+					letters: [
+						{
+							romanji: "jya",
+							letter: "じゃ",
+						},
+						{
+							romanji: "jyu",
+							letter: "じゅ",
+						},
+						{
+							romanji: "jyo",
+							letter: "じょ",
+						},
+					],
+				},
+				{
+					title: "by-",
+					letters: [
+						{
+							romanji: "bya",
+							letter: "びゃ",
+						},
+						{
+							romanji: "byu",
+							letter: "びゅ",
+						},
+						{
+							romanji: "byo",
+							letter: "びょ",
+						},
+					],
+				},
+				{
+					title: "py-",
+					letters: [
+						{
+							romanji: "pya",
+							letter: "ぴゃ",
+						},
+						{
+							romanji: "pyu",
+							letter: "ぴゅ",
+						},
+						{
+							romanji: "pyo",
+							letter: "ぴょ",
+						},
+					],
+				},
+			],
+		},
 	],
 };
 interface cheerStrings {
@@ -404,7 +596,7 @@ export const cheerStrings: cheerStrings = {
 export let currentAlphabet = "hiragana";
 export const mods: { short: mod; title: string; description: string }[] = [
 	{ short: "KT", title: "Keep Trying", description: "Retry each character until you name it correctly" },
-	{ short: "PF", title: "Perfect", description: "Restarts if you make a single mistake" },
-	{ short: "R", title: "Random", description: "Shuffles characters" },
+	{ short: "PF", title: "Perfect", description: "Restart if you make a single mistake" },
+	{ short: "R", title: "Random", description: "Shuffle characters" },
 	{ short: "TT", title: "Time Trials", description: "Limit how much time you have to name a character. 0 to disable" },
 ];

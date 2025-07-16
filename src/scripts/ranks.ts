@@ -29,7 +29,7 @@ export const ranks: rank[] = [
 		condition: (stats: stats) => {
 			//@ts-ignore
 			if (window.forceX) return true;
-			if (selectedGroups.size < 13) return false;
+			if (selectedGroups.size < 25) return false;
 			for (const stat of Object.keys(stats.characters)) {
 				if (stats.characters[stat].mistakes > 0) return false;
 			}
@@ -112,7 +112,7 @@ export const rankPrefix: rank[] = [
 		condition: (stats: stats) => {
 			//@ts-ignore
 			if (window.forceX) return true;
-			if (selectedGroups.size >= 13 && stats.timeTrials && stats.timeTrials <= 1 && stats.mods.includes("PF") && stats.mods.includes("R") && stats.mods.includes("KT")) return true;
+			if (selectedGroups.size >= 25 && stats.timeTrials && stats.timeTrials <= 1 && stats.mods.includes("PF") && stats.mods.includes("R") && stats.mods.includes("KT")) return true;
 			return false;
 		},
 	},

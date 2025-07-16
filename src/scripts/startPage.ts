@@ -88,7 +88,8 @@ for (const alphabetName of Object.keys(alphabets)) {
 
 // Generate mods
 const modsDiv = document.getElementById("modsScreen")!;
-for (const mod of mods) {
+for (const i in mods) {
+	const mod = mods[i];
 	if (mod.short == "TT") continue; // TT has special input, so skip it
 	const modDiv = document.createElement("div");
 	const modLeftContainer = document.createElement("div");
@@ -98,7 +99,7 @@ for (const mod of mods) {
 	modLeftContainer.append(modTitleElement);
 
 	const modDescriptionElement = document.createElement("p");
-	modDescriptionElement.innerHTML = mod.description;
+	modDescriptionElement.innerHTML = `[${Number(i) + 1}]\n${mod.description}`;
 	modLeftContainer.append(modDescriptionElement);
 
 	modDiv.append(modLeftContainer);
@@ -106,6 +107,7 @@ for (const mod of mods) {
 	const modButton = document.createElement("input");
 	modButton.type = "checkbox";
 	modButton.id = `${mod.short}Selected`;
+	modButton.classList.add(`Mod${Number(i) + 1}`);
 
 	modDiv.append(modButton);
 	modsDiv.append(modDiv);
