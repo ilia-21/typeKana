@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="styles.css" />
+		<link rel="stylesheet" href="src/style.css" />
 		<title>Japanese alphabet practice</title>
 	</head>
 	<body>
@@ -85,6 +85,17 @@
 		</div>
 		<div id="resultsScreen" class="hidden">
 			<h1>Good job!</h1>
+			<div id="resultsNotes"></div>
+			<div id="resultsButtons">
+				<p id="resultsRetryBtn">
+					Try again<br />
+					[R]
+				</p>
+				<p id="resultsBackBtn">
+					Back to home <br />
+					[Esc]
+				</p>
+			</div>
 		</div>
 		<div id="helpPageContainer" class="hidden">
 			<div id="helpPage">
@@ -98,11 +109,6 @@
 				<p>Esc</p>
 			</div>
 		</div>
-		<script src="scripts/groups.js"></script>
-		<script src="scripts/utils.js"></script>
-		<script src="scripts/startPage.js"></script>
-		<script src="scripts/actualTest.js"></script>
-		<script src="scripts/buttons.js"></script>
-		<script src="scripts/keybinds.js"></script>
+		<script type="module" src="/src/main.ts"></script>
 	</body>
 </html>

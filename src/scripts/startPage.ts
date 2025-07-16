@@ -1,7 +1,9 @@
-const selectedGroups = new Set();
+import { alphabets, type letterGroup, type letterSubGroup } from "./consts";
 
-function createSubGroupElement(subGroup) {
-	const subGroupDiv = document.createElement("div");
+export const selectedGroups = new Set();
+
+function createSubGroupElement(subGroup: letterSubGroup) {
+	const subGroupDiv = document.createElement("div")!;
 	subGroupDiv.classList.add("alphabetSubGroup");
 
 	const subGroupTitle = document.createElement("p");
@@ -14,14 +16,14 @@ function createSubGroupElement(subGroup) {
 			selectedGroups.add(subGroup.title);
 		} else {
 			selectedGroups.delete(subGroup.title);
-			subGroupDiv.parentNode.classList.remove("selected");
+			subGroupDiv.parentElement!.classList.remove("selected");
 		}
 	});
 
 	return subGroupDiv;
 }
 
-function createGroupElement(group) {
+function createGroupElement(group: letterGroup) {
 	const groupDiv = document.createElement("div");
 	groupDiv.classList.add("alphabetGroup");
 
@@ -36,13 +38,14 @@ function createGroupElement(group) {
 
 	groupTitle.addEventListener("click", () => {
 		const isSelected = groupDiv.classList.toggle("selected");
-		for (sg of groupDiv.children) {
+		for (const sg of groupDiv.children) {
 			if (!sg.classList.contains("alphabetSubGroup")) continue;
+
 			if (isSelected) {
 				sg.classList.add("selected");
-				selectedGroups.add(sg.children[0].innerText.split(" ")[0]);
+				selectedGroups.add((sg.children[0] as HTMLParagraphElement).innerText.split(" ")[0]);
 			} else {
-				selectedGroups.delete(sg.children[0].innerText.split(" ")[0]);
+				selectedGroups.delete((sg.children[0] as HTMLParagraphElement).innerText.split(" ")[0]);
 				sg.classList.remove("selected");
 			}
 		}
@@ -51,7 +54,7 @@ function createGroupElement(group) {
 	return groupDiv;
 }
 
-function createAlphabetSection(title, groups) {
+function createAlphabetSection(title: string, groups: letterGroup[]) {
 	const alphabetDiv = document.createElement("div");
 	alphabetDiv.classList.add("alphabet");
 
@@ -68,8 +71,8 @@ function createAlphabetSection(title, groups) {
 }
 
 // Main rendering
-const contentDiv = document.getElementById("content");
-const disclaimerText = document.getElementById("disclaimer");
+const contentDiv = document.getElementById("content")!;
+const disclaimerText = document.getElementById("disclaimer")!;
 for (const alphabetName of Object.keys(alphabets)) {
 	const alphabetSection = createAlphabetSection(alphabetName, alphabets[alphabetName]);
 	contentDiv.insertBefore(alphabetSection, disclaimerText);

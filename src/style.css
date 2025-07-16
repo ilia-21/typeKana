@@ -1,96 +1,182 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+	/* catppucchin mocha colors */
+	--rosewater: #f5e0dc;
+	--flamingo: #f2cdcd;
+	--pink: #f5c2e7;
+	--mauve: #cba6f7;
+	--red: #f38ba8;
+	--maroon: #eba0ac;
+	--peach: #fab387;
+	--yellow: #f9e2af;
+	--green: #a6e3a1;
+	--teal: #94e2d5;
+	--sky: #89dceb;
+	--sapphire: #74c7ec;
+	--blue: #89b4fa;
+	--lavender: #b4befe;
+	--text: #cdd6f4;
+	--subtext-0: #a6adc8;
+	--subtext-1: #bac2de;
+	--overlay-0: #6c7086;
+	--overlay-1: #7f849c;
+	--overlay-2: #9399b2;
+	--surface-0: #45475a;
+	--surface-1: #313244;
+	--surface-2: #585b70;
+	--base: #1e1e2e;
+	--mantle: #181825;
+	--crust: #11111b;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	/* styles */
+	--jap-bg-dark: var(--crust);
+	--jap-bg: var(--mantle);
+	--jap-bg-secondary: var(--base);
+	--jap-accent: var(--blue); /* here comes the customizablity! */
+	--jap-text: var(--text);
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+html {
 }
-a:hover {
-  color: #535bf2;
-}
-
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+	background-color: var(--jap-bg);
 }
-
+p,
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+	color: var(--jap-text);
+}
+input {
+	background-color: transparent;
+	outline: none;
+	border: none;
+	border-bottom: 1px solid var(--jap-accent);
+	color: var(--jap-text);
+	font-size: 0.7em;
+	width: inherit;
+	text-align: center;
+}
+#content,
+#resultsScreen {
+	margin: 0 auto;
+	max-width: 960px;
+}
+.alphabet {
+	background-color: var(--jap-bg-dark);
+	padding: 1em;
+	margin: 1em;
+	border-radius: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+}
+.alphabetGroup {
+	background-color: var(--jap-bg);
+	padding: 1em;
+	margin: 1em;
+	border-radius: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+}
+.alphabetSubGroup {
+	background-color: var(--jap-bg-secondary);
+	padding: 1em;
+	margin: 1em;
+	border-radius: 0.5rem;
+	cursor: pointer;
 }
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.alphabet > p,
+.alphabetGroup > p,
+.alphabetSubGroup > p {
+	width: 100%;
 }
+.alphabetGroup > .selected {
+	background-color: var(--jap-accent);
+	/* holy, didn't know you can do THIS in css */
+	p {
+		color: var(--jap-bg);
+	}
+}
+.alphabet > .selected {
+	border: 1px solid var(--jap-accent);
+}
+.button,
+#buttonsRow > p,
+#resultsButtons > p {
+	background-color: var(--jap-bg-dark);
+	padding: 1em;
+	border-radius: 0.5rem;
+	margin: 1em;
+	font-size: 1.5em;
+	text-align: center;
+}
+#buttonsRow,
+#resultsButtons {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	cursor: pointer;
+}
+#helpPageContainer {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	backdrop-filter: blur(5px) brightness(50%);
+	#helpPage {
+		max-width: 540px;
+		height: fit-content;
+		padding: 1em;
+		background-color: var(--jap-bg);
+		border-radius: 0.5em;
+	}
+}
+#disclaimer {
+	font-size: smaller;
+}
+.hidden {
+	display: none !important;
+}
+.no-transition {
+	transition: none !important;
+}
+#actualTest {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	font-size: 6em;
+	text-align: center;
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+	div {
+		background-color: var(--jap-bg-dark);
+		padding: 0.5em;
+		border-radius: 0.25em;
+		transition: margin 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* make it BoUnCy! */
+		margin-left: 0px;
+		width: 2em;
+		p {
+			margin: 0;
+		}
+	}
+	#comboText {
+		left: 1rem;
+		bottom: 1rem;
+	}
+	.cheer {
+		top: 20%;
+		opacity: 100%;
+		transition: 0.4s;
+		transition-property: top, opacity;
+	}
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+#comboText,
+.cheer {
+	position: absolute;
+	font-size: 2rem;
 }

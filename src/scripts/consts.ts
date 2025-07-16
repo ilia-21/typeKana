@@ -1,4 +1,19 @@
-const alphabets = {
+export interface letterPair {
+	romanji: string;
+	letter: string;
+}
+export interface letterSubGroup {
+	title: string;
+	letters: letterPair[];
+}
+export interface letterGroup {
+	title: string;
+	groups: letterSubGroup[];
+}
+export interface alphabets {
+	[title: string]: letterGroup[];
+}
+export const alphabets: alphabets = {
 	hiragana: [
 		{
 			title: "Main",
@@ -376,8 +391,12 @@ const alphabets = {
 		},
 	],
 };
-const cheerStrings = {
+interface cheerStrings {
+	negative: string[];
+	positive: string[];
+}
+export const cheerStrings: cheerStrings = {
 	negative: ["Nope!", "Try again!", "Not like this!"],
 	positive: ["Good job!", "Correct!", "Nice!"],
 };
-let currentAlphabet = "hiragana";
+export let currentAlphabet = "hiragana";

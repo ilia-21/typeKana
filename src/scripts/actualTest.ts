@@ -1,41 +1,74 @@
-let lettersArray = [];
+import { alphabets, cheerStrings, currentAlphabet, type letterPair } from "./consts";
+import { selectedGroups } from "./startPage";
+import { getRandomElement, setScreen } from "./utils";
+
+let lettersArray: letterPair[] = [];
 
 let currentCharacterID = 0;
-let stats = {
+interface stats {
+	startTime: number;
+	currentCombo: number;
+	longestCombo: number;
+	characters: {
+		[title: string]: {
+			time: number;
+		};
+	};
+}
+let stats: stats = {
 	startTime: 0,
 	currentCombo: 0,
 	longestCombo: 0,
 	characters: {},
 };
-
-const startTest = () => {
+const comboText = document.getElementById("comboText")!;
+const resultNotes = document.getElementById("resultsNotes") as HTMLDivElement;
+export const startTest = () => {
 	lettersArray = [];
+	currentCharacterID = 0;
 	//Build array of characters
-	for (group of alphabets[currentAlphabet]) {
-		for (subGroup of group.groups) {
+	for (const group of alphabets[currentAlphabet]) {
+		for (const subGroup of group.groups) {
 			if (!selectedGroups.has(subGroup.title)) continue;
-			for (letter of subGroup.letters) {
-				lettersArray.push([letter.romanji, letter.letter]);
+			for (const letter of subGroup.letters) {
+				lettersArray.push(letter);
 			}
 		}
 	}
-	if (lettersArray.length == 0) return;
-
+	if (lettersArray.length == 0) {
+		setScreen("main");
+		return;
+	}
+	//Clear results screen
+	resultNotes.innerHTML = "";
 	//Prepare test
-	document.getElementById("actualTest").children[0].children[0].innerHTML = lettersArray[0][1];
-	document.getElementById("actualTest").children[0].children[1].focus();
-	document.getElementById("actualTest").children[0].children[1].value = "";
-	stats.startTime = Date.now();
+	stats = {
+		startTime: Date.now(),
+		currentCombo: 0,
+		longestCombo: 0,
+		characters: {},
+	};
+	const letterCard = document.getElementById("actualTest")!.children[0] as HTMLDivElement;
+	const inputElement = letterCard.children[1] as HTMLInputElement;
+	letterCard.children[0].innerHTML = lettersArray[0].letter;
+	inputElement.value = "";
 
-	//Switch screen to test
-	document.getElementById("content").classList.add("hidden");
-	document.getElementById("actualTest").classList.remove("hidden");
+	letterCard.classList.add("no-transition");
+	letterCard.style.marginLeft = "0%";
+	comboText.innerHTML = `Combo:0`;
+
+	void letterCard.offsetWidth;
+
+	letterCard.classList.remove("no-transition");
+
+	setScreen("test");
+	inputElement.focus();
 };
-document.getElementById("romanjiInput").addEventListener("keydown", (e) => {
+document.getElementById("romanjiInput")!.addEventListener("keydown", (e) => {
 	if (e.code == "Space" || e.code == "Enter") nextCharacter();
 });
-const testDiv = document.getElementById("actualTest");
-const showCheer = (isNegative, text) => {
+const showCheer = (isNegative: boolean, text: string) => {
+	const testDiv = document.getElementById("actualTest") as HTMLDivElement;
 	const cheerElement = document.createElement("p");
 	cheerElement.classList.add("cheer");
 	cheerElement.innerHTML = text;
@@ -58,14 +91,13 @@ const showCheer = (isNegative, text) => {
 };
 
 const nextCharacter = () => {
-	const currCard = document.getElementById("current");
-	const comboText = document.getElementById("comboText");
-	const inputField = currCard.children[1];
+	const currCard = document.getElementById("current")!;
+	const inputField = currCard.children[1] as HTMLInputElement;
 	const timeTook = Date.now() - stats.startTime;
-	stats.characters[lettersArray[currentCharacterID][0]] = { time: timeTook };
+	stats.characters[lettersArray[currentCharacterID].romanji] = { time: timeTook };
 
 	stats.startTime = Date.now();
-	inputField.value == lettersArray[currentCharacterID][0] ? triggerCorrect() : triggerIncorrect();
+	inputField.value == lettersArray[currentCharacterID].romanji ? triggerCorrect() : triggerIncorrect();
 
 	comboText.innerHTML = `Combo:${stats.currentCombo}`;
 
@@ -79,7 +111,7 @@ const nextCharacter = () => {
 			return;
 		}
 
-		currCard.children[0].innerHTML = lettersArray[++currentCharacterID][1];
+		currCard.children[0].innerHTML = lettersArray[++currentCharacterID].letter;
 		inputField.value = "";
 		inputField.focus();
 
@@ -107,19 +139,19 @@ const triggerCorrect = () => {
 };
 
 const showResultsScreen = () => {
-	const resultsScreen = document.getElementById("resultsScreen");
-	const addResultNote = (text) => {
+	const resultsScreen = document.getElementById("resultsScreen") as HTMLDivElement;
+	const addResultNote = (text: string) => {
 		const element = document.createElement("p");
 		element.innerHTML = text;
-		resultsScreen.append(element);
+		resultNotes.append(element);
 	};
 	//Switch screen to test
-	document.getElementById("actualTest").classList.add("hidden");
+	document.getElementById("actualTest")!.classList.add("hidden");
 	resultsScreen.classList.remove("hidden");
 
 	//Generate results
 	addResultNote(`You longest combo was: ${stats.longestCombo}`);
-	for (stat of Object.keys(stats.characters)) {
+	for (const stat of Object.keys(stats.characters)) {
 		addResultNote(`${stat} took you ${stats.characters[stat].time / 1000}s`);
 	}
 };
