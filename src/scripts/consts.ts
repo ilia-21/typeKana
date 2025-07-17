@@ -595,8 +595,9 @@ export const cheerStrings: cheerStrings = {
 };
 export let currentAlphabet = "hiragana";
 export const mods: { short: mod; title: string; description: string }[] = [
+	{ short: "TT", title: "Time Trials", description: "Limit how much time you have to name a character. 0 to disable" },
 	{ short: "KT", title: "Keep Trying", description: "Retry each character until you name it correctly" },
 	{ short: "PF", title: "Perfect", description: "Restart if you make a single mistake" },
 	{ short: "R", title: "Random", description: "Shuffle characters" },
-	{ short: "TT", title: "Time Trials", description: "Limit how much time you have to name a character. 0 to disable" },
+	{ short: "ZE", title: "Zen", description: "Just type the charactes, forever. Always random" },
 ];

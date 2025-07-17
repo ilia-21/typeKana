@@ -212,7 +212,7 @@ input[type="checkbox"]:checked::before {
 		background-color: var(--jap-bg-dark);
 		padding: 0.5em;
 		border-radius: 0.25em;
-		transition: margin 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* make it BoUnCy! */
+		transition: margin 0.2s cubic-bezier(0.68, -0.55, 0.27, 1.55), border-color 0.1s; /* make it BoUnCy! */
 		margin-left: 0px;
 		width: 2em;
 		p {

@@ -6,7 +6,7 @@ import { calculateRank, convertCharacter, getRandomElement, setScreen, shuffleAr
 let lettersArray: letterPair[] = [];
 
 let currentCharacterID = 0;
-export type mod = "KT" | "PF" | "R" | "TT" | string;
+export type mod = "KT" | "PF" | "R" | "TT" | "ZE" | string;
 export interface stats {
 	history: { character: string; isCorrect: boolean }[];
 	startTime: number;
@@ -34,6 +34,7 @@ const comboText = document.getElementById("comboText")!;
 const accuracyText = document.getElementById("accuracyText")!;
 const resultNotes = document.getElementById("resultsNotes") as HTMLDivElement;
 const modsDisplay = document.getElementById("modsDisplay")!;
+const currCard = document.getElementById("current")!;
 
 let timeoutId: number;
 export const startTest = () => {
@@ -66,21 +67,22 @@ export const startTest = () => {
 		mods: [],
 	};
 	// Prepare mods
-	if ((document.getElementById("KTSelected") as HTMLInputElement).checked) stats.mods?.push("KT");
-	if ((document.getElementById("PFSelected") as HTMLInputElement).checked) stats.mods?.push("PF");
-	if ((document.getElementById("RSelected") as HTMLInputElement).checked) stats.mods?.push("R");
+	["KT", "PF", "R", "ZE"].forEach((m) => {
+		if ((document.getElementById(m + "Selected") as HTMLInputElement).checked) stats.mods?.push(m);
+	});
 	const TT = Number((document.getElementById("TTSeconds") as HTMLInputElement).value);
 	if (TT > 0) {
 		stats.mods?.push("TT:" + TT);
 		stats.timeTrials = TT;
 	}
-	if (stats.mods.includes("R")) shuffleArray(lettersArray);
+	if (stats.mods.includes("R") || stats.mods.includes("ZE")) shuffleArray(lettersArray);
 	const letterCard = document.getElementById("actualTest")!.children[0] as HTMLDivElement;
 	const inputElement = letterCard.children[1] as HTMLInputElement;
 	letterCard.children[0].innerHTML = lettersArray[0].letter;
 	inputElement.value = "";
 	comboText.innerHTML = `Combo:0`;
 	modsDisplay.innerHTML = ``;
+	currCard.style.border = `none`;
 
 	stats.mods?.forEach((m) => {
 		const modElement = document.createElement("p");
@@ -125,7 +127,6 @@ const showCheer = (isNegative: boolean, text: string) => {
 };
 const nextCharacter = () => {
 	if (timeoutId) clearTimeout(timeoutId);
-	const currCard = document.getElementById("current")!;
 	const inputField = currCard.children[1] as HTMLInputElement;
 	let timeTook = Date.now() - stats.startTime;
 	const currentCharacter = lettersArray[currentCharacterID];
@@ -163,7 +164,7 @@ const nextCharacter = () => {
 	accuracyText.innerHTML = `${((accuracy / stats.history.length) * 100).toFixed(2)}%`;
 
 	// Execute animation early
-	if (calculateRank(stats).startsWith("Ascended")) {
+	if (currentCharacterID + 1 >= lettersArray.length && calculateRank(stats).startsWith("Ascended")) {
 		executeTranscendAnimation(stats);
 		return;
 	} else {
@@ -171,13 +172,19 @@ const nextCharacter = () => {
 	}
 
 	// Transition
+	currCard.style.border = `1px solid var(--${isCorrect ? "green" : "red"})`;
 	currCard.style.marginLeft = "-110%";
 	currCard.addEventListener("transitionend", function handleTransition() {
 		currCard.removeEventListener("transitionend", handleTransition);
 
 		if (currentCharacterID + 1 >= lettersArray.length) {
-			showResultsScreen();
-			return;
+			if (stats.mods.includes("ZE")) {
+				currentCharacterID = 0;
+				shuffleArray(lettersArray);
+			} else {
+				showResultsScreen();
+				return;
+			}
 		}
 
 		currCard.children[0].innerHTML = lettersArray[++currentCharacterID].letter;
@@ -186,6 +193,7 @@ const nextCharacter = () => {
 
 		currCard.classList.add("no-transition");
 		currCard.style.marginLeft = "110%";
+		currCard.style.border = `none`;
 
 		void currCard.offsetWidth; //Force browser update
 

@@ -34,11 +34,17 @@ export const setkeybinds = () => {
 		if (e.shiftKey && e.key == "M") {
 			modsPopup.classList.toggle("hidden");
 		}
-		// [1,2,3] Mods selection
+		// [1,2,3,4] Mods selection
 		if (!modsPopup.classList.contains("hidden") && e.code.startsWith("Digit") && document.getElementById("TTSeconds")! != document.activeElement) {
 			const modID = Number(e.code.slice(-1));
-			if (modID > 3) return;
+			if (modID > 4) return;
 			(document.getElementsByClassName(`Mod${modID}`)[0] as HTMLInputElement).checked = true;
+			if (modID == 4) {
+				//Disable all other mods for zen
+				for (let i = 0; i <= 3; i++) {
+					(document.getElementsByClassName(`Mod${i}`)[0] as HTMLInputElement).checked = false;
+				}
+			}
 		}
 		// Time trials
 		if (!modsPopup.classList.contains("hidden") && e.key == "`") {
