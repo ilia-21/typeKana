@@ -1,5 +1,5 @@
 import type { stats } from "./actualTest";
-import { alphabets, currentAlphabet, currentAlphabetIndex } from "./consts";
+import { alphabets, changeAlphabetIndex, currentAlphabet, currentAlphabetIndex } from "./consts";
 import { rankPrefix, ranks, rankSuffix } from "./ranks";
 import { selectedGroups } from "./startPage";
 
@@ -104,6 +104,17 @@ export const switchAll = (what: "on" | "off") => {
 			selectedGroups.add(letter);
 		}
 	});
+};
+export const switchAlphabet = () => {
+	const keys = Object.keys(alphabets);
+	const newIndex = currentAlphabetIndex + 1 > keys.length - 1 ? 0 : currentAlphabetIndex + 1;
+	changeAlphabetIndex(newIndex);
+	document.querySelectorAll(".alphabet").forEach((e) => {
+		e.classList.add("hidden");
+	});
+	document.getElementById(`${keys[newIndex]}Alphabet`)!.classList.remove("hidden");
+	selectedGroups.clear();
+	switchAll("off");
 };
 /* const detectTimeTrials = (stats: stats): number | boolean => {
 	// Even if TT wasn't enabled this will check if you had no mistakes and finished in time

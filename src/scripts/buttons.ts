@@ -1,5 +1,5 @@
 import { startTest } from "./actualTest";
-import { setScreen } from "./utils";
+import { generateAlphabetToggleString, setScreen, switchAlphabet } from "./utils";
 
 export const helpPageContainer = document.getElementById("helpPageContainer")!;
 export const modsPopup = document.getElementById("modsPopup")!;
@@ -13,6 +13,10 @@ export const setButtons = () => {
 	});
 	document.getElementById("modsBtn")!.addEventListener("click", () => {
 		modsPopup.classList.toggle("hidden");
+	});
+	document.getElementById("alphabetBtn")!.addEventListener("click", () => {
+		switchAlphabet();
+		document.getElementById("alphabetBtn")!.innerHTML = `${generateAlphabetToggleString()}<br>[Caps Lock]`;
 	});
 	document.getElementById("resultsRetryBtn")!.addEventListener("click", () => {
 		startTest();

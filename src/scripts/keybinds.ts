@@ -2,7 +2,7 @@ import { showResultsScreen, startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
 import { alphabets, changeAlphabetIndex, currentAlphabet, currentAlphabetIndex } from "./consts";
 import { selectedGroups } from "./startPage";
-import { currentScreen, generateAlphabetToggleString, setScreen, switchAll, toggleAll } from "./utils";
+import { currentScreen, generateAlphabetToggleString, setScreen, switchAll, switchAlphabet, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
@@ -40,16 +40,8 @@ export const setkeybinds = () => {
 						break;
 					// CapsLock to switch alphabets
 					case "CapsLock":
-						const keys = Object.keys(alphabets);
-						const newIndex = currentAlphabetIndex + 1 > keys.length - 1 ? 0 : currentAlphabetIndex + 1;
 						if (capsLockLock) {
-							changeAlphabetIndex(newIndex);
-							document.querySelectorAll(".alphabet").forEach((e) => {
-								e.classList.add("hidden");
-							});
-							document.getElementById(`${keys[newIndex]}Alphabet`)!.classList.remove("hidden");
-							selectedGroups.clear();
-							switchAll("off");
+							switchAlphabet();
 						}
 						capsLockLock = !capsLockLock;
 
