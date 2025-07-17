@@ -86,11 +86,13 @@ input[type="checkbox"]:checked::before {
 #resultsNotes {
 	width: 40%;
 	max-height: 410px;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
 	p {
 		margin: 0.2em;
+	}
+	#characterBreakdown {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
 	}
 }
 .alphabet {

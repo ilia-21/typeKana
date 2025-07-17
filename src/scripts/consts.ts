@@ -297,7 +297,7 @@ export const alphabets: alphabets = {
 							letter: "ざ",
 						},
 						{
-							romanji: "zi",
+							romanji: "ji",
 							letter: "じ",
 						},
 						{

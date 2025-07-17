@@ -16,7 +16,7 @@ const animateResultsNote = (text: string) => {
 	element.style.opacity = "0";
 	element.classList.add("yes-transition");
 	element.classList.add("transcendedCharacter");
-	resultNotes.append(element);
+	resultNotes.children[0].append(element);
 	requestAnimationFrame(() => {
 		element.style.opacity = "1";
 	});
@@ -38,7 +38,6 @@ export const executeTranscendAnimation = async (stats: stats) => {
 	await sleep(2000);
 	setScreen("results");
 	for (const character of Object.keys(stats.characters)) {
-		const current = stats.characters[character];
 		animateResultsNote(`${convertCharacter("letter", character)}: Perfect`);
 		await sleep(delay);
 		delay = Math.max(200, delay * 0.9);

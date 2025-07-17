@@ -56,7 +56,8 @@ export const startTest = () => {
 	}
 
 	// Clear results screen
-	resultNotes.innerHTML = "";
+	resultNotes.children[0].innerHTML = "";
+	resultNotes.children[1].innerHTML = "";
 
 	// Prepare test
 	stats = {
@@ -85,6 +86,7 @@ export const startTest = () => {
 	comboText.classList = "";
 	modsDisplay.innerHTML = ``;
 	currCard.style.border = `none`;
+	inputElement.value = "";
 
 	stats.mods?.forEach((m) => {
 		const modElement = document.createElement("p");
@@ -171,7 +173,8 @@ const nextCharacter = () => {
 	accuracyText.innerHTML = `${((accuracy / stats.history.length) * 100).toFixed(2)}%`;
 
 	// Execute animation early
-	if (currentCharacterID + 1 >= lettersArray.length && calculateRank(stats).startsWith("Ascended")) {
+	//@ts-ignore
+	if ((currentCharacterID + 1 >= lettersArray.length && calculateRank(stats).startsWith("Ascended")) || window.forceX) {
 		executeTranscendAnimation(stats);
 		return;
 	}
@@ -229,17 +232,18 @@ const triggerCorrect = () => {
 
 export const showResultsScreen = () => {
 	const rankText = document.getElementById("resultsRank") as HTMLHeadingElement;
-	const addResultNote = (text: string) => {
+	const addResultNote = (type: "character" | "note", text: string) => {
+		const insertIndex = type == "character" ? 0 : 1;
 		const element = document.createElement("p");
 		element.innerHTML = text;
-		resultNotes.append(element);
+		resultNotes.children[insertIndex].append(element);
 	};
 	// Switch screen to test
 	setScreen("results");
 
 	calculateRank(stats, rankText);
 	if (stats.failed) {
-		addResultNote("You failed");
+		addResultNote("note", "You failed");
 		return;
 	}
 
@@ -252,20 +256,20 @@ export const showResultsScreen = () => {
 		if (stats.mods.includes("ZE")) {
 			//Show average time instead if Zen is enabled
 			if (!currentCharacter.encounters) currentCharacter.encounters = 1;
-			addResultNote(`${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000 / currentCharacter.encounters).toFixed(2)}s avg (${currentCharacter.encounters}x)`);
+			addResultNote("character", `${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000 / currentCharacter.encounters).toFixed(2)}s avg (${currentCharacter.encounters}x)`);
 		} else {
-			addResultNote(`${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000).toFixed(2)}s${currentCharacter.mistakes > 0 ? ` (${currentCharacter.mistakes + 1}  tries)` : ""} `);
+			addResultNote("character", `${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000).toFixed(2)}s${currentCharacter.mistakes > 0 ? ` (${currentCharacter.mistakes + 1}  tries)` : ""} `);
 		}
 
 		// While we are going through all the characters find the one with most mistakes
 		if (currentCharacter.mistakes > hardest.mistakes) hardest = { character: stat, mistakes: currentCharacter.mistakes };
 	}
-	addResultNote(`Max combo: ${stats.longestCombo} ${hardest.mistakes == 0 ? "(Full combo)" : ""}`);
-	addResultNote(`Accuracy: ${accuracyText.innerHTML}`);
+	addResultNote("note", `Max combo: ${stats.longestCombo} ${hardest.mistakes == 0 ? "(Full combo)" : ""}`);
+	addResultNote("note", `Accuracy: ${accuracyText.innerHTML}`);
 
 	// Results: character with most mistakes
 	if (hardest.mistakes > 0) {
-		addResultNote(`Hardest character: ${convertCharacter("letter", hardest.character)} (${hardest.mistakes + 1} tries)`);
+		addResultNote("note", `Hardest character: ${convertCharacter("letter", hardest.character)} (${hardest.mistakes + 1} tries)`);
 	}
 	//console.log(stats);
 };

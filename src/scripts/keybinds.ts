@@ -93,7 +93,12 @@ export const setkeybinds = () => {
 				break;
 			// ==========================================================================================================
 			case "results":
-				if (e.shiftKey && e.code == "R") startTest();
+				if (e.code == "Tab") {
+					// I FORGOT ABOUT preventDefault() LOL
+					// Literally added only on last day
+					e.preventDefault();
+					startTest();
+				}
 				if (e.code == "Escape") setScreen("main");
 				break;
 		}
