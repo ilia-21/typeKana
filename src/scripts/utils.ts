@@ -1,6 +1,8 @@
 import type { stats } from "./actualTest";
-import { alphabets } from "./consts";
+import { alphabets, currentAlphabet } from "./consts";
+import { subGroupKeybinds } from "./keybinds";
 import { rankPrefix, ranks, rankSuffix } from "./ranks";
+import { selectedGroups } from "./startPage";
 
 export const shuffleArray = (array: any[]) => {
 	let currentIndex = array.length;
@@ -80,6 +82,22 @@ export const calculateRank = (stats: stats, rankElement?: HTMLElement) => {
 
 	rankElement && (rankElement.innerHTML = finalRank);
 	return finalRank;
+};
+export const toggleAll = () => {
+	// Whatever, just check one character, it doesn't need to be complicated
+	document.querySelector(".alphabetSubGroup")?.classList.contains("selected") ? switchAll("off") : switchAll("on");
+};
+export const switchAll = (what: "on" | "off") => {
+	document.querySelectorAll(".alphabetSubGroup").forEach((e) => {
+		const letter = e.children[0].innerHTML.split(" ")[0];
+		if (what == "off") {
+			e.classList.remove("selected");
+			selectedGroups.clear();
+		} else {
+			e.classList.add("selected");
+			selectedGroups.add(letter);
+		}
+	});
 };
 //unused
 const detectTimeTrials = (stats: stats): number | boolean => {

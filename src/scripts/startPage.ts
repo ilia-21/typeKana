@@ -2,6 +2,7 @@ import { alphabets, currentAlphabet, mods, type letterGroup, type letterSubGroup
 import { groupKeybinds, subGroupKeybinds } from "./keybinds";
 
 export const selectedGroups = new Set();
+let alphabetInProcess = "";
 
 function createSubGroupElement(subGroup: letterSubGroup) {
 	const toggleSubGroup = () => {
@@ -25,9 +26,9 @@ function createSubGroupElement(subGroup: letterSubGroup) {
 	});
 
 	if (subGroup.title.length < 3) {
-		subGroupKeybinds[subGroup.title.charAt(0)] = toggleSubGroup;
+		subGroupKeybinds[alphabetInProcess][subGroup.title.charAt(0)] = toggleSubGroup;
 	} else {
-		subGroupKeybinds["S" + subGroup.title.charAt(0)] = toggleSubGroup;
+		subGroupKeybinds[alphabetInProcess]["S" + subGroup.title.charAt(0)] = toggleSubGroup;
 	}
 
 	return subGroupDiv;
@@ -62,7 +63,7 @@ function createGroupElement(group: letterGroup, index: number) {
 	groupTitle.addEventListener("click", () => {
 		toggleGroup();
 	});
-	groupKeybinds[index + 1] = toggleGroup;
+	groupKeybinds[alphabetInProcess][index + 1] = toggleGroup;
 
 	return groupDiv;
 }
@@ -71,12 +72,15 @@ function createAlphabetSection(title: string, groups: letterGroup[]) {
 	const alphabetDiv = document.createElement("div");
 	alphabetDiv.classList.add("alphabet");
 	alphabetDiv.id = `${title}Alphabet`;
+	alphabetInProcess = title;
 	if (currentAlphabet != title) alphabetDiv.classList.add("hidden");
 
 	const alphabetTitle = document.createElement("p");
 	alphabetTitle.textContent = title;
 	alphabetDiv.appendChild(alphabetTitle);
 
+	if (!subGroupKeybinds[alphabetInProcess]) subGroupKeybinds[alphabetInProcess] = {};
+	if (!groupKeybinds[alphabetInProcess]) groupKeybinds[alphabetInProcess] = [];
 	for (const groupIndex in groups) {
 		const groupElement = createGroupElement(groups[groupIndex], Number(groupIndex));
 		alphabetDiv.appendChild(groupElement);

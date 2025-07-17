@@ -1,22 +1,23 @@
 import { showResultsScreen, startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
-import { alphabets, changeAlphabetIndex, currentAlphabetIndex } from "./consts";
-import { currentScreen, setScreen } from "./utils";
+import { alphabets, changeAlphabetIndex, currentAlphabet, currentAlphabetIndex } from "./consts";
+import { selectedGroups } from "./startPage";
+import { currentScreen, setScreen, switchAll, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
-export const subGroupKeybinds: { [title: string]: () => void } = {};
-export const groupKeybinds: (() => void)[] = [];
+export const subGroupKeybinds: { [title: string]: { [title: string]: () => void } } = {};
+export const groupKeybinds: { [title: string]: (() => void)[] } = {};
 export let capsLockLock = false;
 export const setkeybinds = () => {
 	document.addEventListener("keydown", (e) => {
 		//console.log(e);
 
 		// Keybinds for rows of letters
-		for (const subGroup of Object.keys(subGroupKeybinds)) {
+		for (const subGroup of Object.keys(subGroupKeybinds[currentAlphabet])) {
 			if (currentScreen == "main") {
-				if (e.key == subGroup) subGroupKeybinds[subGroup]();
-				if (subGroup.startsWith("S") && e.shiftKey && e.key.toLowerCase() == subGroup.charAt(1)) subGroupKeybinds[subGroup]();
+				if (e.key == subGroup) subGroupKeybinds[currentAlphabet][subGroup]();
+				if (subGroup.startsWith("S") && e.shiftKey && e.key.toLowerCase() == subGroup.charAt(1)) subGroupKeybinds[currentAlphabet][subGroup]();
 			}
 		}
 
@@ -33,11 +34,11 @@ export const setkeybinds = () => {
 			}
 			if (currentScreen == "results") setScreen("main");
 		}
-		if ((currentScreen == "results" && e.shiftKey && e.code == "R") || (currentScreen == "main" && e.code == "Space")) startTest();
-
-		// Shift+[1,2,3] Select alphabet groups
+		if ((currentScreen == "results" && e.shiftKey && e.code == "R") || (currentScreen == "main" && e.code == "Enter")) startTest();
+		if (currentScreen == "main" && e.code == "Space") toggleAll();
 		if (e.shiftKey && e.code.startsWith("Digit")) {
-			groupKeybinds[Number(e.code.slice(-1))]();
+			// Shift+[1,2,3] Select alphabet groups
+			groupKeybinds[currentAlphabet][Number(e.code.slice(-1))]();
 		}
 
 		// F2 mods
@@ -77,6 +78,8 @@ export const setkeybinds = () => {
 					e.classList.add("hidden");
 				});
 				document.getElementById(`${keys[newIndex]}Alphabet`)!.classList.remove("hidden");
+				selectedGroups.clear();
+				switchAll("off");
 			}
 			capsLockLock = !capsLockLock;
 

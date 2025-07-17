@@ -1,4 +1,4 @@
-import { alphabets, cheerStrings, comboMilestones, currentAlphabet, type letterPair } from "./consts";
+import { alphabets, cheerStrings, comboMilestones, currentAlphabet, currentAlphabetIndex, type letterPair } from "./consts";
 import { selectedGroups } from "./startPage";
 import { executeTranscendAnimation } from "./transcendAimation";
 import { calculateRank, convertCharacter, getRandomElement, setScreen, shuffleArray } from "./utils";
@@ -267,10 +267,5 @@ export const showResultsScreen = () => {
 	if (hardest.mistakes > 0) {
 		addResultNote(`Hardest character: ${convertCharacter("letter", hardest.character)} (${hardest.mistakes + 1} tries)`);
 	}
-	console.log(stats);
+	//console.log(stats);
 };
-//Mods:
-//Perfect: restart on incorrect
-//Time Trials
-//Keep Trying: keep retrying character instead of sending to the end
-//Random

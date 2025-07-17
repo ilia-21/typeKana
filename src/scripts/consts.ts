@@ -157,7 +157,7 @@ export const alphabets: alphabets = {
 							letter: "ひ",
 						},
 						{
-							romanji: "hu",
+							romanji: "fu",
 							letter: "ふ",
 						},
 						{
@@ -584,32 +584,568 @@ export const alphabets: alphabets = {
 			],
 		},
 	],
-	test: [
+	katakana: [
 		{
-			title: "test",
+			title: "Main",
 			groups: [
 				{
 					title: "a",
 					letters: [
 						{
+							letter: "ア",
 							romanji: "a",
-							letter: "あ",
 						},
 						{
+							letter: "イ",
 							romanji: "i",
-							letter: "い",
 						},
 						{
+							letter: "ウ",
 							romanji: "u",
-							letter: "う",
 						},
 						{
+							letter: "エ",
 							romanji: "e",
-							letter: "え",
 						},
 						{
+							letter: "オ",
 							romanji: "o",
-							letter: "お",
+						},
+					],
+				},
+				{
+					title: "k-",
+					letters: [
+						{
+							letter: "カ",
+							romanji: "ka",
+						},
+						{
+							letter: "キ",
+							romanji: "ki",
+						},
+						{
+							letter: "ク",
+							romanji: "ku",
+						},
+						{
+							letter: "ケ",
+							romanji: "ke",
+						},
+						{
+							letter: "コ",
+							romanji: "ko",
+						},
+					],
+				},
+				{
+					title: "s-",
+					letters: [
+						{
+							letter: "サ",
+							romanji: "sa",
+						},
+						{
+							letter: "シ",
+							romanji: "shi",
+						},
+						{
+							letter: "ス",
+							romanji: "su",
+						},
+						{
+							letter: "セ",
+							romanji: "se",
+						},
+						{
+							letter: "ソ",
+							romanji: "so",
+						},
+					],
+				},
+				{
+					title: "t-",
+					letters: [
+						{
+							letter: "タ",
+							romanji: "ta",
+						},
+						{
+							letter: "チ",
+							romanji: "chi",
+						},
+						{
+							letter: "ツ",
+							romanji: "tsu",
+						},
+						{
+							letter: "テ",
+							romanji: "te",
+						},
+						{
+							letter: "ト",
+							romanji: "to",
+						},
+					],
+				},
+				{
+					title: "n-",
+					letters: [
+						{
+							letter: "ナ",
+							romanji: "na",
+						},
+						{
+							letter: "ニ",
+							romanji: "ni",
+						},
+						{
+							letter: "ヌ",
+							romanji: "nu",
+						},
+						{
+							letter: "ネ",
+							romanji: "ne",
+						},
+						{
+							letter: "ノ",
+							romanji: "no",
+						},
+					],
+				},
+				{
+					title: "h-",
+					letters: [
+						{
+							letter: "ハ",
+							romanji: "ha",
+						},
+						{
+							letter: "ヒ",
+							romanji: "hi",
+						},
+						{
+							letter: "フ",
+							romanji: "fu",
+						},
+						{
+							letter: "ヘ",
+							romanji: "he",
+						},
+						{
+							letter: "ホ",
+							romanji: "ho",
+						},
+					],
+				},
+				{
+					title: "m-",
+					letters: [
+						{
+							letter: "マ",
+							romanji: "ma",
+						},
+						{
+							letter: "ミ",
+							romanji: "mi",
+						},
+						{
+							letter: "ム",
+							romanji: "mu",
+						},
+						{
+							letter: "メ",
+							romanji: "me",
+						},
+						{
+							letter: "モ",
+							romanji: "mo",
+						},
+					],
+				},
+				{
+					title: "y-",
+					letters: [
+						{
+							letter: "ヤ",
+							romanji: "ya",
+						},
+						{
+							letter: "ユ",
+							romanji: "yu",
+						},
+						{
+							letter: "ヨ",
+							romanji: "yo",
+						},
+					],
+				},
+				{
+					title: "r-",
+					letters: [
+						{
+							letter: "ラ",
+							romanji: "ra",
+						},
+						{
+							letter: "リ",
+							romanji: "ri",
+						},
+						{
+							letter: "ル",
+							romanji: "ru",
+						},
+						{
+							letter: "レ",
+							romanji: "re",
+						},
+						{
+							letter: "ロ",
+							romanji: "ro",
+						},
+					],
+				},
+				{
+					title: "w-",
+					letters: [
+						{
+							letter: "ワ",
+							romanji: "wa",
+						},
+						{
+							letter: "ヲ",
+							romanji: "wo",
+						},
+					],
+				},
+				{
+					title: "n",
+					letters: [
+						{
+							letter: "ン",
+							romanji: "n",
+						},
+					],
+				},
+			],
+		},
+		{
+			title: "Modified",
+			groups: [
+				{
+					title: "g-",
+					letters: [
+						{
+							letter: "ガ",
+							romanji: "ga",
+						},
+						{
+							letter: "ギ",
+							romanji: "gi",
+						},
+						{
+							letter: "グ",
+							romanji: "gu",
+						},
+						{
+							letter: "ゲ",
+							romanji: "ge",
+						},
+						{
+							letter: "ゴ",
+							romanji: "go",
+						},
+					],
+				},
+				{
+					title: "z-",
+					letters: [
+						{
+							letter: "ザ",
+							romanji: "za",
+						},
+						{
+							letter: "ジ",
+							romanji: "zi",
+						},
+						{
+							letter: "ズ",
+							romanji: "zu",
+						},
+						{
+							letter: "ゼ",
+							romanji: "ze",
+						},
+						{
+							letter: "ゾ",
+							romanji: "zo",
+						},
+					],
+				},
+				{
+					title: "d-",
+					letters: [
+						{
+							letter: "ダ",
+							romanji: "da",
+						},
+						{
+							letter: "ヂ",
+							romanji: "di",
+						},
+						{
+							letter: "ヅ",
+							romanji: "du",
+						},
+						{
+							letter: "デ",
+							romanji: "de",
+						},
+						{
+							letter: "ド",
+							romanji: "do",
+						},
+					],
+				},
+				{
+					title: "b-",
+					letters: [
+						{
+							letter: "バ",
+							romanji: "ba",
+						},
+						{
+							letter: "ビ",
+							romanji: "bi",
+						},
+						{
+							letter: "ブ",
+							romanji: "bu",
+						},
+						{
+							letter: "ベ",
+							romanji: "be",
+						},
+						{
+							letter: "ボ",
+							romanji: "bo",
+						},
+					],
+				},
+				{
+					title: "p-",
+					letters: [
+						{
+							letter: "パ",
+							romanji: "pa",
+						},
+						{
+							letter: "ピ",
+							romanji: "pi",
+						},
+						{
+							letter: "プ",
+							romanji: "pu",
+						},
+						{
+							letter: "ペ",
+							romanji: "pe",
+						},
+						{
+							letter: "ポ",
+							romanji: "po",
+						},
+					],
+				},
+			],
+		},
+		{
+			title: "Combined",
+			groups: [
+				{
+					title: "ky-",
+					letters: [
+						{
+							letter: "キャ",
+							romanji: "kya",
+						},
+						{
+							letter: "キュ",
+							romanji: "kyu",
+						},
+						{
+							letter: "キョ",
+							romanji: "kyo",
+						},
+					],
+				},
+				{
+					title: "sh-",
+					letters: [
+						{
+							letter: "シャ",
+							romanji: "sha",
+						},
+						{
+							letter: "シュ",
+							romanji: "shu",
+						},
+						{
+							letter: "ショ",
+							romanji: "sho",
+						},
+					],
+				},
+				{
+					title: "ch-",
+					letters: [
+						{
+							letter: "チャ",
+							romanji: "cha",
+						},
+						{
+							letter: "チュ",
+							romanji: "chu",
+						},
+						{
+							letter: "チョ",
+							romanji: "cho",
+						},
+					],
+				},
+				{
+					title: "ny-",
+					letters: [
+						{
+							letter: "ニャ",
+							romanji: "nya",
+						},
+						{
+							letter: "ニュ",
+							romanji: "nyu",
+						},
+						{
+							letter: "ニョ",
+							romanji: "nyo",
+						},
+					],
+				},
+				{
+					title: "hy-",
+					letters: [
+						{
+							letter: "ヒャ",
+							romanji: "hya",
+						},
+						{
+							letter: "ヒュ",
+							romanji: "hyu",
+						},
+						{
+							letter: "ヒョ",
+							romanji: "hyo",
+						},
+					],
+				},
+				{
+					title: "my-",
+					letters: [
+						{
+							letter: "ミャ",
+							romanji: "mya",
+						},
+						{
+							letter: "ミュ",
+							romanji: "myu",
+						},
+						{
+							letter: "ミョ",
+							romanji: "myo",
+						},
+					],
+				},
+				{
+					title: "ry-",
+					letters: [
+						{
+							letter: "リャ",
+							romanji: "rya",
+						},
+						{
+							letter: "リュ",
+							romanji: "ryu",
+						},
+						{
+							letter: "リョ",
+							romanji: "ryo",
+						},
+					],
+				},
+				{
+					title: "gy-",
+					letters: [
+						{
+							letter: "ギャ",
+							romanji: "gya",
+						},
+						{
+							letter: "ギュ",
+							romanji: "gyu",
+						},
+						{
+							letter: "ギョ",
+							romanji: "gyo",
+						},
+					],
+				},
+				{
+					title: "jy-",
+					letters: [
+						{
+							letter: "jヤ",
+							romanji: "jya",
+						},
+						{
+							letter: "jユ",
+							romanji: "jyu",
+						},
+						{
+							letter: "jヨ",
+							romanji: "jyo",
+						},
+					],
+				},
+				{
+					title: "by-",
+					letters: [
+						{
+							letter: "ビャ",
+							romanji: "bya",
+						},
+						{
+							letter: "ビュ",
+							romanji: "byu",
+						},
+						{
+							letter: "ビョ",
+							romanji: "byo",
+						},
+					],
+				},
+				{
+					title: "py-",
+					letters: [
+						{
+							letter: "ピャ",
+							romanji: "pya",
+						},
+						{
+							letter: "ピュ",
+							romanji: "pyu",
+						},
+						{
+							letter: "ピョ ",
+							romanji: "pyo",
 						},
 					],
 				},
@@ -630,6 +1166,7 @@ export let currentAlphabet = Object.keys(alphabets)[currentAlphabetIndex];
 // Sorry for putting this function here, I don't know how else I can do it without screwing up whole code
 export const changeAlphabetIndex = (i: number) => {
 	currentAlphabetIndex = i;
+	currentAlphabet = Object.keys(alphabets)[currentAlphabetIndex];
 };
 export const mods: { short: mod; title: string; description: string }[] = [
 	{ short: "TT", title: "Time Trials", description: "Limit how much time you have to name a character. 0 to disable" },
