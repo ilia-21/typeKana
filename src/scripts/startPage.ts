@@ -1,4 +1,4 @@
-import { alphabets, mods, type letterGroup, type letterSubGroup } from "./consts";
+import { alphabets, currentAlphabet, mods, type letterGroup, type letterSubGroup } from "./consts";
 import { groupKeybinds, subGroupKeybinds } from "./keybinds";
 
 export const selectedGroups = new Set();
@@ -70,6 +70,8 @@ function createGroupElement(group: letterGroup, index: number) {
 function createAlphabetSection(title: string, groups: letterGroup[]) {
 	const alphabetDiv = document.createElement("div");
 	alphabetDiv.classList.add("alphabet");
+	alphabetDiv.id = `${title}Alphabet`;
+	if (currentAlphabet != title) alphabetDiv.classList.add("hidden");
 
 	const alphabetTitle = document.createElement("p");
 	alphabetTitle.textContent = title;

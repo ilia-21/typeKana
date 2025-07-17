@@ -584,6 +584,38 @@ export const alphabets: alphabets = {
 			],
 		},
 	],
+	test: [
+		{
+			title: "test",
+			groups: [
+				{
+					title: "a",
+					letters: [
+						{
+							romanji: "a",
+							letter: "あ",
+						},
+						{
+							romanji: "i",
+							letter: "い",
+						},
+						{
+							romanji: "u",
+							letter: "う",
+						},
+						{
+							romanji: "e",
+							letter: "え",
+						},
+						{
+							romanji: "o",
+							letter: "お",
+						},
+					],
+				},
+			],
+		},
+	],
 };
 interface cheerStrings {
 	negative: string[];
@@ -593,7 +625,12 @@ export const cheerStrings: cheerStrings = {
 	negative: ["Nope!", "Try again!", "Not like this!"],
 	positive: ["Good job!", "Correct!", "Nice!"],
 };
-export let currentAlphabet = "hiragana";
+export let currentAlphabetIndex = 0;
+export let currentAlphabet = Object.keys(alphabets)[currentAlphabetIndex];
+// Sorry for putting this function here, I don't know how else I can do it without screwing up whole code
+export const changeAlphabetIndex = (i: number) => {
+	currentAlphabetIndex = i;
+};
 export const mods: { short: mod; title: string; description: string }[] = [
 	{ short: "TT", title: "Time Trials", description: "Limit how much time you have to name a character. 0 to disable" },
 	{ short: "KT", title: "Keep Trying", description: "Retry each character until you name it correctly" },

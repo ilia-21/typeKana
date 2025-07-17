@@ -1,11 +1,13 @@
 import { showResultsScreen, startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
+import { alphabets, changeAlphabetIndex, currentAlphabetIndex } from "./consts";
 import { currentScreen, setScreen } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
 export const subGroupKeybinds: { [title: string]: () => void } = {};
 export const groupKeybinds: (() => void)[] = [];
+export let capsLockLock = false;
 export const setkeybinds = () => {
 	document.addEventListener("keydown", (e) => {
 		//console.log(e);
@@ -63,6 +65,22 @@ export const setkeybinds = () => {
 			element.focus();
 			// It puts ` into the input field sometimes
 			element.value = element.value.replaceAll("`", "");
+		}
+
+		// CapsLock to switch alphabets
+		if (e.key == "CapsLock") {
+			const keys = Object.keys(alphabets);
+			const newIndex = currentAlphabetIndex + 1 > keys.length - 1 ? 0 : currentAlphabetIndex + 1;
+			if (!capsLockLock) {
+				changeAlphabetIndex(newIndex);
+				document.querySelectorAll(".alphabet").forEach((e) => {
+					e.classList.add("hidden");
+				});
+				document.getElementById(`${keys[newIndex]}Alphabet`)!.classList.remove("hidden");
+			}
+			capsLockLock = !capsLockLock;
+
+			document.getElementById("alphabetBtn")!.innerHTML = `${capsLockLock ? "Press it again" : "Switch <br />[CapsLock]"}`;
 		}
 
 		if (seqIndex > 0 && e.key != sequence[seqIndex]) seqIndex = 0;
