@@ -140,11 +140,7 @@ const nextCharacter = () => {
 	if (!currentCharacterRomanji) {
 		stats.characters[currentCharacter.romanji] = { time: timeTook, mistakes: 0 };
 	} else {
-		if (currentCharacterRomanji.mistakes > 0) {
-			stats.characters[currentCharacter.romanji].time += timeTook;
-		} else {
-			currentCharacterRomanji.time = timeTook;
-		}
+		stats.characters[currentCharacter.romanji].time += timeTook;
 	}
 	if (stats.mods.includes("ZE")) {
 		stats.characters[currentCharacter.romanji].encounters ? stats.characters[currentCharacter.romanji].encounters!++ : (stats.characters[currentCharacter.romanji].encounters = 1);
@@ -171,6 +167,13 @@ const nextCharacter = () => {
 	comboText.innerHTML = `${stats.currentCombo}x`;
 	if (comboMilestones.includes(stats.currentCombo)) comboText.classList.add(`combo${stats.currentCombo}`);
 	accuracyText.innerHTML = `${((accuracy / stats.history.length) * 100).toFixed(2)}%`;
+	if (stats.mods.includes("ZE")) {
+		let totalMistkes = 0;
+		stats.history.forEach((h) => {
+			if (!h.isCorrect) totalMistkes++;
+		});
+		accuracyText.innerHTML += ` (${stats.history.length - totalMistkes}/${stats.history.length})`;
+	}
 
 	// Execute animation early
 	//@ts-ignore

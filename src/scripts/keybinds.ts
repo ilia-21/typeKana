@@ -1,8 +1,7 @@
 import { showResultsScreen, startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
-import { alphabets, changeAlphabetIndex, currentAlphabet, currentAlphabetIndex } from "./consts";
-import { selectedGroups } from "./startPage";
-import { currentScreen, generateAlphabetToggleString, setScreen, switchAll, switchAlphabet, toggleAll } from "./utils";
+import { currentAlphabet } from "./consts";
+import { currentScreen, generateAlphabetToggleString, setScreen, switchAlphabet, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
