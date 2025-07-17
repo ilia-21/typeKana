@@ -1,5 +1,5 @@
 import type { stats } from "./actualTest";
-import { alphabets } from "./consts";
+import { alphabets, currentAlphabet, currentAlphabetIndex } from "./consts";
 import { rankPrefix, ranks, rankSuffix } from "./ranks";
 import { selectedGroups } from "./startPage";
 
@@ -85,6 +85,13 @@ export const calculateRank = (stats: stats, rankElement?: HTMLElement) => {
 export const toggleAll = () => {
 	// Whatever, just check one character, it doesn't need to be complicated
 	document.querySelector(".alphabetSubGroup")?.classList.contains("selected") ? switchAll("off") : switchAll("on");
+};
+export const generateAlphabetToggleString = () => {
+	const keys = Object.keys(alphabets);
+	const nextAlphabetIndex = currentAlphabetIndex + 1 >= keys.length ? 0 : currentAlphabetIndex + 1;
+	const first = alphabets[currentAlphabet][0].groups[0].letters[0].letter;
+	const second = alphabets[keys[nextAlphabetIndex]][0].groups[0].letters[0].letter;
+	return `${first} -> ${second}`;
 };
 export const switchAll = (what: "on" | "off") => {
 	document.querySelectorAll(".alphabetSubGroup").forEach((e) => {

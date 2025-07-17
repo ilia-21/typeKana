@@ -2,7 +2,7 @@ import { showResultsScreen, startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
 import { alphabets, changeAlphabetIndex, currentAlphabet, currentAlphabetIndex } from "./consts";
 import { selectedGroups } from "./startPage";
-import { currentScreen, setScreen, switchAll, toggleAll } from "./utils";
+import { currentScreen, generateAlphabetToggleString, setScreen, switchAll, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
@@ -42,7 +42,7 @@ export const setkeybinds = () => {
 					case "CapsLock":
 						const keys = Object.keys(alphabets);
 						const newIndex = currentAlphabetIndex + 1 > keys.length - 1 ? 0 : currentAlphabetIndex + 1;
-						if (!capsLockLock) {
+						if (capsLockLock) {
 							changeAlphabetIndex(newIndex);
 							document.querySelectorAll(".alphabet").forEach((e) => {
 								e.classList.add("hidden");
@@ -53,7 +53,7 @@ export const setkeybinds = () => {
 						}
 						capsLockLock = !capsLockLock;
 
-						document.getElementById("alphabetBtn")!.innerHTML = `${capsLockLock ? "Press it again" : "Switch <br />[CapsLock]"}`;
+						document.getElementById("alphabetBtn")!.innerHTML = `${generateAlphabetToggleString()}<br>${capsLockLock ? "[Again]" : `[Caps Lock]`}`;
 						break;
 				}
 				// [1,2,3,4] Mods selection

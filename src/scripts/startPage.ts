@@ -1,5 +1,6 @@
 import { alphabets, currentAlphabet, mods, type letterGroup, type letterSubGroup } from "./consts";
 import { groupKeybinds, subGroupKeybinds } from "./keybinds";
+import { generateAlphabetToggleString } from "./utils";
 
 export const selectedGroups = new Set();
 let alphabetInProcess = "";
@@ -97,6 +98,8 @@ for (const alphabetName of Object.keys(alphabets)) {
 	contentDiv.insertBefore(alphabetSection, disclaimerText);
 }
 
+// Alphabet switcher
+document.getElementById("alphabetBtn")!.innerHTML = `${generateAlphabetToggleString()}<br>[Caps Lock]`;
 // Generate mods
 const modsDiv = document.getElementById("modsScreen")!;
 for (const i in mods) {
