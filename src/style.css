@@ -167,7 +167,7 @@ input[type="checkbox"]:checked::before {
 }
 #helpPageContainer,
 #modsPopup {
-	position: absolute;
+	position: fixed;
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -368,4 +368,66 @@ input[type="checkbox"]:checked::before {
 	background: linear-gradient(270deg, rgb(0, 255, 224), rgb(255, 0, 200), rgb(255, 215, 0), rgb(0, 255, 224)) 0% 0% / 800% 800% text;
 	-webkit-text-fill-color: transparent;
 	animation: 6s infinite pulseGradient, 2s ease-in-out infinite glowPulseSmall;
+}
+@keyframes comboPulse {
+	0%,
+	100% {
+		transform: scale(1.2);
+	}
+	50% {
+		transform: scale(1.3);
+	}
+}
+
+@keyframes comboShimmer {
+	0%,
+	100% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+@keyframes comboTilt {
+	0%,
+	100% {
+		transform: rotate(-2deg) scale(1.4);
+	}
+	50% {
+		transform: rotate(2deg) scale(1.45);
+	}
+}
+.combo10 {
+	color: #00bcd4;
+	text-shadow: 0 0 5px #00bcd4;
+}
+.combo25 {
+	color: #4caf50;
+	text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50;
+	transform: scale(1.1);
+}
+.combo50 {
+	color: gold;
+	text-shadow: 0 0 15px gold, 0 0 25px orange;
+	animation: comboPulse 1.2s infinite ease-in-out;
+	transform: scale(1.2);
+}
+.combo75 {
+	background: linear-gradient(270deg, #ff00c8, #00ffe0, #ffd700, #ff00c8);
+	background-size: 400% 400%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: comboShimmer 3s ease infinite, comboPulse 1.5s infinite;
+	text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+	transform: scale(1.3);
+}
+.combo100 {
+	background: linear-gradient(90deg, #00ffff, #ff00ff, #ffff00);
+	background-size: 600% 600%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	animation: comboShimmer 2.5s linear infinite, comboPulse 1s infinite ease-in-out, comboTilt 1.5s ease-in-out infinite;
+	text-shadow: 0 0 12px white, 0 0 25px cyan;
+	transform: scale(1.4);
 }

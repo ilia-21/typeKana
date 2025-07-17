@@ -1,4 +1,4 @@
-import { alphabets, cheerStrings, currentAlphabet, type letterPair } from "./consts";
+import { alphabets, cheerStrings, comboMilestones, currentAlphabet, type letterPair } from "./consts";
 import { selectedGroups } from "./startPage";
 import { executeTranscendAnimation } from "./transcendAimation";
 import { calculateRank, convertCharacter, getRandomElement, setScreen, shuffleArray } from "./utils";
@@ -16,13 +16,14 @@ export interface stats {
 		[title: string]: {
 			mistakes: number;
 			time: number;
+			encounters?: number;
 		};
 	};
 	mods: mod[];
 	timeTrials?: number;
 	failed?: boolean;
 }
-let stats: stats = {
+export let stats: stats = {
 	history: [],
 	startTime: 0,
 	currentCombo: 0,
@@ -80,7 +81,8 @@ export const startTest = () => {
 	const inputElement = letterCard.children[1] as HTMLInputElement;
 	letterCard.children[0].innerHTML = lettersArray[0].letter;
 	inputElement.value = "";
-	comboText.innerHTML = `Combo:0`;
+	comboText.innerHTML = `0x`;
+	comboText.classList = "";
 	modsDisplay.innerHTML = ``;
 	currCard.style.border = `none`;
 
@@ -132,6 +134,7 @@ const nextCharacter = () => {
 	const currentCharacter = lettersArray[currentCharacterID];
 	const currentCharacterRomanji = stats.characters[currentCharacter.romanji];
 
+	// Calculate stats for characters
 	if (!currentCharacterRomanji) {
 		stats.characters[currentCharacter.romanji] = { time: timeTook, mistakes: 0 };
 	} else {
@@ -140,6 +143,9 @@ const nextCharacter = () => {
 		} else {
 			currentCharacterRomanji.time = timeTook;
 		}
+	}
+	if (stats.mods.includes("ZE")) {
+		stats.characters[currentCharacter.romanji].encounters ? stats.characters[currentCharacter.romanji].encounters!++ : (stats.characters[currentCharacter.romanji].encounters = 1);
 	}
 
 	stats.startTime = Date.now();
@@ -161,14 +167,13 @@ const nextCharacter = () => {
 		accuracy += h.isCorrect ? 1 : 0;
 	}
 	comboText.innerHTML = `${stats.currentCombo}x`;
+	if (comboMilestones.includes(stats.currentCombo)) comboText.classList.add(`combo${stats.currentCombo}`);
 	accuracyText.innerHTML = `${((accuracy / stats.history.length) * 100).toFixed(2)}%`;
 
 	// Execute animation early
 	if (currentCharacterID + 1 >= lettersArray.length && calculateRank(stats).startsWith("Ascended")) {
 		executeTranscendAnimation(stats);
 		return;
-	} else {
-		console.log(calculateRank(stats));
 	}
 
 	// Transition
@@ -211,6 +216,7 @@ const triggerIncorrect = () => {
 	}
 	showCheer(true, getRandomElement(cheerStrings.negative));
 	stats.currentCombo = 0;
+	comboText.classList = "";
 	if (stats.mods.includes("KT")) return;
 	const wrongCharacter = lettersArray[currentCharacterID];
 	lettersArray.push(wrongCharacter);
@@ -221,7 +227,7 @@ const triggerCorrect = () => {
 	if (stats.longestCombo < stats.currentCombo) stats.longestCombo = stats.currentCombo;
 };
 
-const showResultsScreen = () => {
+export const showResultsScreen = () => {
 	const rankText = document.getElementById("resultsRank") as HTMLHeadingElement;
 	const addResultNote = (text: string) => {
 		const element = document.createElement("p");
@@ -243,7 +249,13 @@ const showResultsScreen = () => {
 	for (const stat of Object.keys(stats.characters)) {
 		const currentCharacter = stats.characters[stat];
 		// Results: how much time it took for each character
-		addResultNote(`${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000).toFixed(2)}s${currentCharacter.mistakes > 0 ? ` (${currentCharacter.mistakes + 1}  tries)` : ""} `);
+		if (stats.mods.includes("ZE")) {
+			//Show average time instead if Zen is enabled
+			if (!currentCharacter.encounters) currentCharacter.encounters = 1;
+			addResultNote(`${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000 / currentCharacter.encounters).toFixed(2)}s avg (${currentCharacter.encounters}x)`);
+		} else {
+			addResultNote(`${convertCharacter("letter", stat)}: ${(currentCharacter.time / 1000).toFixed(2)}s${currentCharacter.mistakes > 0 ? ` (${currentCharacter.mistakes + 1}  tries)` : ""} `);
+		}
 
 		// While we are going through all the characters find the one with most mistakes
 		if (currentCharacter.mistakes > hardest.mistakes) hardest = { character: stat, mistakes: currentCharacter.mistakes };

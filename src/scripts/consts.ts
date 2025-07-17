@@ -601,3 +601,4 @@ export const mods: { short: mod; title: string; description: string }[] = [
 	{ short: "R", title: "Random", description: "Shuffle characters" },
 	{ short: "ZE", title: "Zen", description: "Just type the charactes, forever. Always random" },
 ];
+export const comboMilestones: number[] = [10, 25, 50, 75, 100];

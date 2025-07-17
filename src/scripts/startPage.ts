@@ -23,7 +23,12 @@ function createSubGroupElement(subGroup: letterSubGroup) {
 	subGroupDiv.addEventListener("click", () => {
 		toggleSubGroup();
 	});
-	subGroupKeybinds[subGroup.title.charAt(0)] = toggleSubGroup;
+
+	if (subGroup.title.length < 3) {
+		subGroupKeybinds[subGroup.title.charAt(0)] = toggleSubGroup;
+	} else {
+		subGroupKeybinds["S" + subGroup.title.charAt(0)] = toggleSubGroup;
+	}
 
 	return subGroupDiv;
 }
@@ -99,7 +104,7 @@ for (const i in mods) {
 	modLeftContainer.append(modTitleElement);
 
 	const modDescriptionElement = document.createElement("p");
-	modDescriptionElement.innerHTML = `[${Number(i) + 1}]\n${mod.description}`;
+	modDescriptionElement.innerHTML = `[${Number(i)}]\n${mod.description}`;
 	modLeftContainer.append(modDescriptionElement);
 
 	modDiv.append(modLeftContainer);
@@ -107,7 +112,7 @@ for (const i in mods) {
 	const modButton = document.createElement("input");
 	modButton.type = "checkbox";
 	modButton.id = `${mod.short}Selected`;
-	modButton.classList.add(`Mod${Number(i) + 1}`);
+	modButton.classList.add(`Mod${Number(i)}`);
 
 	modDiv.append(modButton);
 	modsDiv.append(modDiv);
