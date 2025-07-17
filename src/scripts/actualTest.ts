@@ -1,4 +1,4 @@
-import { alphabets, cheerStrings, comboMilestones, currentAlphabet, currentAlphabetIndex, type letterPair } from "./consts";
+import { alphabets, cheerStrings, comboMilestones, currentAlphabet, type letterPair } from "./consts";
 import { selectedGroups } from "./startPage";
 import { executeTranscendAnimation } from "./transcendAimation";
 import { calculateRank, convertCharacter, getRandomElement, setScreen, shuffleArray } from "./utils";

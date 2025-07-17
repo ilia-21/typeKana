@@ -34,8 +34,6 @@
 	--jap-accent: var(--blue); /* here comes the customizablity! */
 	--jap-text: var(--text);
 }
-html {
-}
 body {
 	background-color: var(--jap-bg);
 }

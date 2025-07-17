@@ -1,6 +1,5 @@
 import type { stats } from "./actualTest";
-import { alphabets, currentAlphabet } from "./consts";
-import { subGroupKeybinds } from "./keybinds";
+import { alphabets } from "./consts";
 import { rankPrefix, ranks, rankSuffix } from "./ranks";
 import { selectedGroups } from "./startPage";
 
@@ -99,8 +98,7 @@ export const switchAll = (what: "on" | "off") => {
 		}
 	});
 };
-//unused
-const detectTimeTrials = (stats: stats): number | boolean => {
+/* const detectTimeTrials = (stats: stats): number | boolean => {
 	// Even if TT wasn't enabled this will check if you had no mistakes and finished in time
 	let longest = 0;
 	for (const stat of Object.keys(stats.characters)) {
@@ -109,4 +107,4 @@ const detectTimeTrials = (stats: stats): number | boolean => {
 		if (currentStat.time / 1000 > longest / 1000) longest = currentStat.time / 1000;
 	}
 	return longest;
-};
+}; */

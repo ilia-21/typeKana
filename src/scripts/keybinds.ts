@@ -55,9 +55,6 @@ export const setkeybinds = () => {
 
 						document.getElementById("alphabetBtn")!.innerHTML = `${capsLockLock ? "Press it again" : "Switch <br />[CapsLock]"}`;
 						break;
-					case "Space":
-						toggleAll();
-						break;
 				}
 				// [1,2,3,4] Mods selection
 				if (!modsPopup.classList.contains("hidden") && e.code.startsWith("Digit") && document.getElementById("TTSeconds")! != document.activeElement) {
@@ -90,12 +87,14 @@ export const setkeybinds = () => {
 			// ==========================================================================================================
 			case "test":
 				// Exit to results screen if Zen is enabled
-				stats.mods.includes("ZE") ? showResultsScreen() : setScreen("main");
+				if (e.code == "Escape") {
+					stats.mods.includes("ZE") ? showResultsScreen() : setScreen("main");
+				}
 				break;
 			// ==========================================================================================================
 			case "results":
 				if (e.shiftKey && e.code == "R") startTest();
-				setScreen("main");
+				if (e.code == "Escape") setScreen("main");
 				break;
 		}
 
