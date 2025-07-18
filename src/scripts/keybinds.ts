@@ -8,6 +8,10 @@ let seqIndex = 0;
 export const subGroupKeybinds: { [title: string]: { [title: string]: () => void } } = {};
 export const groupKeybinds: { [title: string]: (() => void)[] } = {};
 export let capsLockLock = false;
+export const closePopups = () => {
+	if (!helpPageContainer.classList.contains("hidden")) helpPageContainer.classList.add("hidden");
+	if (!modsPopup.classList.contains("hidden")) modsPopup.classList.add("hidden");
+};
 export const setkeybinds = () => {
 	document.addEventListener("keydown", (e) => {
 		//console.log(e);
@@ -25,11 +29,11 @@ export const setkeybinds = () => {
 			case "main":
 				switch (e.code) {
 					case "Enter":
+						closePopups();
 						startTest();
 						break;
 					case "Escape":
-						if (!helpPageContainer.classList.contains("hidden")) helpPageContainer.classList.add("hidden");
-						if (!modsPopup.classList.contains("hidden")) modsPopup.classList.add("hidden");
+						closePopups();
 						break;
 					case "Space":
 						toggleAll();
