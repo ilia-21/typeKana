@@ -40,13 +40,12 @@ export const setScreen = (screen: screen) => {
 };
 export const convertCharacter = (to: "romanji" | "letter", character: string) => {
 	// holy shit this is SO bad
-	for (const a of Object.keys(alphabets)) {
-		for (const g of alphabets[a]) {
-			for (const sg of g.groups) {
-				for (const l of sg.letters) {
-					if (to == "letter" && l.romanji == character) return l.letter;
-					if (to == "romanji" && l.letter == character) return l.romanji;
-				}
+
+	for (const g of alphabets[currentAlphabet]) {
+		for (const sg of g.groups) {
+			for (const l of sg.letters) {
+				if (to == "letter" && l.romanji == character) return l.letter;
+				if (to == "romanji" && l.letter == character) return l.romanji;
 			}
 		}
 	}
