@@ -99,7 +99,9 @@ for (const alphabetName of Object.keys(alphabets)) {
 }
 
 // Alphabet switcher
-document.getElementById("alphabetBtn")!.innerHTML = `${generateAlphabetToggleString()}<br>[Caps Lock]`;
+window.onload = () => {
+	document.getElementById("alphabetBtn")!.innerHTML = `${generateAlphabetToggleString()}<br>[Caps Lock]`;
+};
 // Generate mods
 const modsDiv = document.getElementById("modsScreen")!;
 for (const i in mods) {

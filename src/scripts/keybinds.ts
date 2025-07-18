@@ -1,6 +1,7 @@
-import { showResultsScreen, startTest, stats } from "./actualTest";
+import { startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
 import { currentAlphabet } from "./consts";
+import { showResultsScreen } from "./resultsScreen";
 import { currentScreen, generateAlphabetToggleString, setScreen, switchAlphabet, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
@@ -83,7 +84,7 @@ export const setkeybinds = () => {
 			case "test":
 				// Exit to results screen if Zen is enabled
 				if (e.code == "Escape") {
-					stats.mods.includes("ZE") ? showResultsScreen() : setScreen("main");
+					stats.mods.includes("ZE") ? showResultsScreen(stats) : setScreen("main");
 				}
 				break;
 			// ==========================================================================================================
