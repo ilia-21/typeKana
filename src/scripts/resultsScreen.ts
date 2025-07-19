@@ -106,6 +106,4 @@ export const showResultsScreen = (stats: stats) => {
 	if (hardest.mistakes > 0) {
 		addResultNote({ type: "note", text: `Hardest character: ${convertCharacter("letter", hardest.character)} (${hardest.mistakes + 1} tries)` });
 	}
-	console.log(stats);
-	console.log(performances);
 };

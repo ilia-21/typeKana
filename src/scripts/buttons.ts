@@ -53,7 +53,6 @@ export const setButtons = () => {
 				const base64String = reader.result;
 				(document.getElementById("statsPfp")! as HTMLImageElement).src = `` + base64String;
 				updateProfile("pfp", `` + base64String);
-				console.log(base64String);
 			};
 			reader.readAsDataURL(file);
 		};
