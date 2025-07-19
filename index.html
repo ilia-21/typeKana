@@ -4,17 +4,17 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Japanese alphabet practice</title>
-		<script type="module" crossorigin src="./assets/index-B_C6Buw2.js"></script>
-		<link rel="stylesheet" crossorigin href="./assets/index-Cmg6fPOR.css">
+		<script type="module" crossorigin src="./assets/index-B5yjpZPE.js"></script>
+		<link rel="stylesheet" crossorigin href="./assets/index-cFNoaZYl.css">
 	</head>
 	<body>
-		<div id="content">
+		<div id="content" class="content">
 			<div id="buttonsRow">
 				<p id="startBtn">Start<br />[Enter]</p>
 				<p id="helpBtn">Help</p>
 				<p id="statsBtn">
 					Stats<br />
-					(soon)
+					[F1]
 				</p>
 				<p id="modsBtn">
 					Mods <br />
@@ -26,7 +26,7 @@
 				</p>
 			</div>
 
-			<p id="disclaimer">Disclaimer: I'm still learning, this tool may have mistakes.</p>
+			<p id="disclaimer">Disclaimer: I'm still learning, this tool may have mistakes. <span style="color: var(--surface-0)">commitid</span></p>
 		</div>
 		<div id="actualTest" class="hidden">
 			<div id="current">
@@ -56,31 +56,51 @@
 				</p>
 			</div>
 		</div>
-		<div id="helpPageContainer" class="hidden">
-			<div id="helpPage">
-				<h1>Wtf is this?</h1>
-				<p>This is a simple tool I started on a night from 2025-07-15 to 2025-07-16 to simplify learning hiragana</p>
-				<h1>Cool, how do I use it?</h1>
-				<p>Select rows of letters you want to practice and hit start. You'll see hiragana/katakana letters and your job is to write romanji for that letter</p>
-				<h1>Any fancy keybinds?</h1>
-				<p>Of course! On the main page you can hit letter corresponding to group to toggle it. For example hit a, k, s and t to select first 4 rows of characters. For combined characters (like きゃ) use shift + first character, in this case Shift+K. On the test page hit space after typing romanji to accept and go to the next character.</p>
-				<h1>Anything else?</h1>
-				<p>Check mods (F2)! They make you guess in a diffrent ways. For example Zen just never stops and Time Trials limits the amount of time you have to write the character.</p>
-				<h1>How to close this window?</h1>
-				<p>Esc</p>
+		<div id="statsScreen" class="content hidden">
+			<div id="statsHeader">
+				<div id="statsProfile">
+					<img id="statsPfp" src="https://placehold.co/400" alt="" />
+					<input type="text" id="statsNickname"  class="hiddenInput" value="username"></input>
+					<input type="text" id="statsSlogan" class="hiddenInput" value="slogan (click to edit)"></input>
+				</div>
+				<div id="statsHeatmap"></div>
+			</div>
+			<div id="statsRuns"></div>
+		</div>
+		<div id="popupContainer" class="hidden"></div>
+		<div id="helpPage" class="hidden popup">
+			<h1>Wtf is this?</h1>
+			<p>This is a simple tool I started on a night from 2025-07-15 to 2025-07-16 to simplify learning hiragana</p>
+			<h1>Cool, how do I use it?</h1>
+			<p>Select rows of letters you want to practice and hit start. You'll see hiragana/katakana letters and your job is to write romanji for that letter</p>
+			<h1>Any fancy keybinds?</h1>
+			<p>Of course! On the main page you can hit letter corresponding to group to toggle it. For example hit a, k, s and t to select first 4 rows of characters. For combined characters (like きゃ) use shift + first character, in this case Shift+K. On the test page hit space after typing romanji to accept and go to the next character. Look for text in square brackets like [Esc] to find more keybinds</p>
+			<h1>Anything else?</h1>
+			<p>Check mods (F2)! They make you guess in a diffrent ways. For example Zen just never stops and Time Trials limits the amount of time you have to write the character.</p>
+			<h1>How to close this window?</h1>
+			<p>Every page can be closed on [Esc]</p>
+		</div>
+		<div id="modsScreen" class="hidden popup">
+			<h1>Mods</h1>
+			<div id="timeTrialsMod">
+				<div>
+					<p>Time Trials</p>
+					<p>[~]<br />Limit how much seconds you have to name a character.<br />Unlocks <span class="special">Special</span> ranks when used with Perfect.<br />Set to 0 to disable</p>
+				</div>
+				<input type="number" name="" id="TTSeconds" value="0" />
 			</div>
 		</div>
-		<div id="modsPopup" class="hidden">
-			<div id="modsScreen">
-				<h1>Mods</h1>
-				<div id="timeTrialsMod">
-					<div>
-						<p>Time Trials</p>
-						<p>[~]<br />Limit how much seconds you have to name a character.<br />Unlocks <span class="special">Special</span> ranks when used with Perfect.<br />Set to 0 to disable</p>
-					</div>
-					<input type="number" name="" id="TTSeconds" value="0" />
-				</div>
-			</div>
+		<div id="statsNotice" class="hidden popup">
+			<h1>Important info about stats</h1>
+			<p>typeKana ain't damn sweaty competitve platform. It's made to help YOU learn alphabets, so stats here just so YOU see your progress and how much YOU improved. They are also easy to manipulate. All stats and profile info is stored locally in your browser</p>
+		</div>
+		<div id="devTools" class="hidden">
+			<h1>Super secret settings</h1>
+			<p id="devForceAscend">Force ascend</p>
+			<p id="wipeHistory">Wipe history</p>
+			<!-- I looked at two button texts about and decided to continue in this style lol -->
+			<p id="resetStatsPopup">Reset knowledge</p>
+			<p id="wipeProfile">I never existed</p>
 		</div>
 	</body>
 </html>
