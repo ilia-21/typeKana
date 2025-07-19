@@ -1,21 +1,21 @@
 import { startTest } from "./actualTest";
-import { generateAlphabetToggleString, Screen, setScreen, switchAlphabet } from "./utils";
+import { generateAlphabetToggleString, Screen, setScreen, showPopup, switchAlphabet } from "./utils";
 
-export const helpPageContainer = document.getElementById("helpPageContainer")!;
-export const modsPopup = document.getElementById("modsPopup")!;
+export const helpPageContainer = document.getElementById("helpPage")! as HTMLDivElement;
+export const modsPopup = document.getElementById("modsScreen")! as HTMLDivElement;
 
 export const setButtons = () => {
 	document.getElementById("startBtn")!.addEventListener("click", () => {
 		startTest();
 	});
 	document.getElementById("helpBtn")!.addEventListener("click", () => {
-		helpPageContainer.classList.toggle("hidden");
+		showPopup(helpPageContainer);
 	});
 	document.getElementById("statsBtn")!.addEventListener("click", () => {
 		setScreen(Screen.STATS);
 	});
 	document.getElementById("modsBtn")!.addEventListener("click", () => {
-		modsPopup.classList.toggle("hidden");
+		showPopup(modsPopup);
 	});
 	document.getElementById("alphabetBtn")!.addEventListener("click", () => {
 		switchAlphabet();
@@ -35,5 +35,8 @@ export const setButtons = () => {
 	document.getElementById("devForceAscend")!.addEventListener("click", () => {
 		//@ts-ignore
 		window.forceX = true;
+	});
+	document.getElementById("resetStatsPopup")!.addEventListener("click", () => {
+		localStorage.removeItem("statsInfoSeen");
 	});
 };

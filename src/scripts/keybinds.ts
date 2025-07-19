@@ -12,9 +12,13 @@ export const groupKeybinds: { [title: string]: (() => void)[] } = {};
 export let capsLockLock = false;
 export const closePopups = () => {
 	const devTools = document.getElementById("devTools") as HTMLDivElement;
-	if (!helpPageContainer.classList.contains("hidden")) helpPageContainer.classList.add("hidden");
-	if (!modsPopup.classList.contains("hidden")) modsPopup.classList.add("hidden");
+	const popupContainer = document.getElementById("popupContainer")!;
+	let wasPopupClosed = !popupContainer.classList.contains("hidden") || !devTools.classList.contains("hidden");
+	if (!popupContainer.classList.contains("hidden")) {
+		popupContainer.classList.add("hidden");
+	}
 	if (!devTools.classList.contains("hidden")) devTools.classList.add("hidden");
+	return wasPopupClosed;
 };
 export const setkeybinds = () => {
 	document.addEventListener("keydown", (e) => {
@@ -113,6 +117,7 @@ export const setkeybinds = () => {
 				switch (e.code) {
 					case "F1":
 					case "Escape":
+						if (closePopups()) return;
 						setScreen(Screen.MAIN);
 						break;
 				}

@@ -117,6 +117,13 @@ export const storeRun = (stats: stats, performances: characterPerformance[], alp
 	pastRuns.push({ ...stats, performance: performances, alphabet: alphabet });
 	localStorage.setItem("history", JSON.stringify(pastRuns));
 };
+export const showPopup = (el: HTMLDivElement) => {
+	const popupContainer = document.getElementById("popupContainer")!;
+	popupContainer.innerHTML = "";
+	popupContainer.appendChild(el);
+	popupContainer.children[0].classList.remove("hidden");
+	popupContainer.classList.remove("hidden");
+};
 /* const detectTimeTrials = (stats: stats): number | boolean => {
 	// Even if TT wasn't enabled this will check if you had no mistakes and finished in time
 	let longest = 0;

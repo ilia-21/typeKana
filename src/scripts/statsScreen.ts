@@ -1,7 +1,7 @@
 import type { stats } from "./actualTest";
 import { alphabets, heatmapTemplate } from "./consts";
 import { getColor, normalize, type characterPerformance } from "./resultsScreen";
-import { calculateRank, convertCharacter, loadRuns } from "./utils";
+import { calculateRank, convertCharacter, loadRuns, showPopup } from "./utils";
 
 export interface run extends stats {
 	// Store pre-calculated performance stats
@@ -139,6 +139,10 @@ const clearStats = () => {
 	document.getElementById("statsRuns")!.innerHTML = "";
 };
 export const buildStats = () => {
+	if (!localStorage.getItem("statsInfoSeen")) {
+		showPopup(document.getElementById("statsNotice") as HTMLDivElement);
+		localStorage.setItem("statsInfoSeen", "true");
+	}
 	clearStats();
 	const data = loadRuns();
 	console.log(findWeights(data));
