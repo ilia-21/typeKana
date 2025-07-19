@@ -122,12 +122,12 @@ const showCheer = (isNegative: boolean, text: string) => {
 	cheerElement.style.top = "20%";
 
 	testDiv.append(cheerElement);
-
 	requestAnimationFrame(() => {
 		cheerElement.style.opacity = "0%";
 		cheerElement.style.top = "0%";
 	});
-
+	// I am at a loss of words. Every time I start debugger here it just works.
+	// However if I disable and refresh the page it's not working anymore
 	cheerElement.addEventListener("transitionend", function handleTransition() {
 		cheerElement.removeEventListener("transitionend", handleTransition);
 		cheerElement.remove();
@@ -139,7 +139,11 @@ const nextCharacter = () => {
 	let timeTook = Date.now() - stats.startTime;
 	const currentCharacter = lettersArray[currentCharacterID];
 	const currentCharacterRomanji = stats.characters[currentCharacter.romanji];
-
+	inputField.value = inputField.value.replaceAll(" ", "");
+	if (inputField.value == "") {
+		shakeTheCard();
+		return;
+	}
 	// Calculate stats for characters
 	if (!currentCharacterRomanji) {
 		stats.characters[currentCharacter.romanji] = { time: timeTook, mistakes: 0 };
@@ -235,4 +239,17 @@ const triggerCorrect = () => {
 	showCheer(false, getRandomElement(cheerStrings.positive));
 	stats.currentCombo++;
 	if (stats.longestCombo < stats.currentCombo) stats.longestCombo = stats.currentCombo;
+};
+const shakeTheCard = () => {
+	currCard.classList.add("maybe-transition");
+	currCard.style.marginLeft = "-5%";
+	currCard.addEventListener("transitionend", function handleTransition() {
+		currCard.removeEventListener("transitionend", handleTransition);
+		currCard.style.marginLeft = "5%";
+		currCard.addEventListener("transitionend", function handleTransition() {
+			currCard.removeEventListener("transitionend", handleTransition);
+			currCard.style.marginLeft = "0%";
+			currCard.classList.remove("maybe-transition");
+		});
+	});
 };
