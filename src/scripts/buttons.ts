@@ -1,15 +1,18 @@
 import { startTest } from "./actualTest";
-import { generateAlphabetToggleString, setScreen, switchAlphabet } from "./utils";
+import { generateAlphabetToggleString, Screen, setScreen, switchAlphabet } from "./utils";
 
 export const helpPageContainer = document.getElementById("helpPageContainer")!;
 export const modsPopup = document.getElementById("modsPopup")!;
 
 export const setButtons = () => {
+	document.getElementById("startBtn")!.addEventListener("click", () => {
+		startTest();
+	});
 	document.getElementById("helpBtn")!.addEventListener("click", () => {
 		helpPageContainer.classList.toggle("hidden");
 	});
-	document.getElementById("startBtn")!.addEventListener("click", () => {
-		startTest();
+	document.getElementById("statsBtn")!.addEventListener("click", () => {
+		setScreen(Screen.STATS);
 	});
 	document.getElementById("modsBtn")!.addEventListener("click", () => {
 		modsPopup.classList.toggle("hidden");
@@ -22,6 +25,15 @@ export const setButtons = () => {
 		startTest();
 	});
 	document.getElementById("resultsBackBtn")!.addEventListener("click", () => {
-		setScreen("main");
+		setScreen(Screen.MAIN);
+	});
+
+	// Dev panel buttons
+	document.getElementById("wipeHistory")!.addEventListener("click", () => {
+		localStorage.removeItem("history");
+	});
+	document.getElementById("devForceAscend")!.addEventListener("click", () => {
+		//@ts-ignore
+		window.forceX = true;
 	});
 };

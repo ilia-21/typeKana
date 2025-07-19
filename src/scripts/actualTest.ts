@@ -2,13 +2,14 @@ import { alphabets, cheerStrings, comboMilestones, currentAlphabet, type letterP
 import { showResultsScreen } from "./resultsScreen";
 import { selectedGroups } from "./startPage";
 import { executeTranscendAnimation } from "./transcendAimation";
-import { calculateRank, convertCharacter, getRandomElement, setScreen, shuffleArray } from "./utils";
+import { calculateRank, convertCharacter, getRandomElement, Screen, setScreen, shuffleArray } from "./utils";
 
 let lettersArray: letterPair[] = [];
 
 let currentCharacterID = 0;
 export type mod = "KT" | "PF" | "R" | "TT" | "ZE" | string;
 export interface stats {
+	timestamp: number;
 	history: { character: string; isCorrect: boolean }[];
 	startTime: number;
 	currentCombo: number;
@@ -25,6 +26,7 @@ export interface stats {
 	failed?: boolean;
 }
 export let stats: stats = {
+	timestamp: 0,
 	history: [],
 	startTime: 0,
 	currentCombo: 0,
@@ -52,7 +54,7 @@ export const startTest = () => {
 		}
 	}
 	if (lettersArray.length == 0) {
-		setScreen("main");
+		setScreen(Screen.MAIN);
 		return;
 	}
 
@@ -62,6 +64,7 @@ export const startTest = () => {
 
 	// Prepare test
 	stats = {
+		timestamp: 0,
 		history: [],
 		startTime: Date.now(),
 		currentCombo: 0,
@@ -101,7 +104,7 @@ export const startTest = () => {
 	void letterCard.offsetWidth;
 	letterCard.classList.remove("no-transition");
 
-	setScreen("test");
+	setScreen(Screen.TEST);
 	inputElement.focus();
 	if (stats.timeTrials) timeoutId = setTimeout(nextCharacter, stats.timeTrials * 1e3);
 };

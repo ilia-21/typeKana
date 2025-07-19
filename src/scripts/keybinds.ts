@@ -2,16 +2,19 @@ import { startTest, stats } from "./actualTest";
 import { helpPageContainer, modsPopup } from "./buttons";
 import { currentAlphabet } from "./consts";
 import { showResultsScreen } from "./resultsScreen";
-import { currentScreen, generateAlphabetToggleString, setScreen, switchAlphabet, toggleAll } from "./utils";
+import { currentScreen, generateAlphabetToggleString, Screen, setScreen, switchAlphabet, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
+const preventDefaultList = ["Tab", "Escape", "Enter"];
 export const subGroupKeybinds: { [title: string]: { [title: string]: () => void } } = {};
 export const groupKeybinds: { [title: string]: (() => void)[] } = {};
 export let capsLockLock = false;
 export const closePopups = () => {
+	const devTools = document.getElementById("devTools") as HTMLDivElement;
 	if (!helpPageContainer.classList.contains("hidden")) helpPageContainer.classList.add("hidden");
 	if (!modsPopup.classList.contains("hidden")) modsPopup.classList.add("hidden");
+	if (!devTools.classList.contains("hidden")) devTools.classList.add("hidden");
 };
 export const setkeybinds = () => {
 	document.addEventListener("keydown", (e) => {
@@ -19,15 +22,19 @@ export const setkeybinds = () => {
 
 		// Keybinds for rows of letters
 		for (const subGroup of Object.keys(subGroupKeybinds[currentAlphabet])) {
-			if (currentScreen == "main") {
+			if (currentScreen == Screen.MAIN) {
 				if (e.key == subGroup) subGroupKeybinds[currentAlphabet][subGroup]();
 				if (subGroup.startsWith("S") && e.shiftKey && e.key.toLowerCase() == subGroup.charAt(1)) subGroupKeybinds[currentAlphabet][subGroup]();
 			}
 		}
 
+		// I FORGOT ABOUT preventDefault() LOL
+		// Literally added only on last day
+		if (preventDefaultList.includes(e.code)) e.preventDefault();
+
 		switch (currentScreen) {
 			// ==========================================================================================================
-			case "main":
+			case Screen.MAIN:
 				switch (e.code) {
 					case "Enter":
 						closePopups();
@@ -38,6 +45,9 @@ export const setkeybinds = () => {
 						break;
 					case "Space":
 						toggleAll();
+						break;
+					case "F1":
+						setScreen(Screen.STATS);
 						break;
 					case "F2":
 						modsPopup.classList.toggle("hidden");
@@ -81,29 +91,38 @@ export const setkeybinds = () => {
 				}
 				break;
 			// ==========================================================================================================
-			case "test":
+			case Screen.TEST:
 				// Exit to results screen if Zen is enabled
 				if (e.code == "Escape") {
-					stats.mods.includes("ZE") ? showResultsScreen(stats) : setScreen("main");
+					stats.mods.includes("ZE") ? showResultsScreen(stats) : setScreen(Screen.MAIN);
 				}
 				break;
 			// ==========================================================================================================
-			case "results":
-				if (e.code == "Tab") {
-					// I FORGOT ABOUT preventDefault() LOL
-					// Literally added only on last day
-					e.preventDefault();
-					startTest();
+			case Screen.RESULTS:
+				switch (e.code) {
+					case "Tab":
+						startTest();
+						break;
+					case "Escape":
+						setScreen(Screen.MAIN);
+						break;
 				}
-				if (e.code == "Escape") setScreen("main");
+				break;
+			// ==========================================================================================================
+			case Screen.STATS:
+				switch (e.code) {
+					case "F1":
+					case "Escape":
+						setScreen(Screen.MAIN);
+						break;
+				}
 				break;
 		}
 
 		if (seqIndex > 0 && e.key != sequence[seqIndex]) seqIndex = 0;
 		if (e.key == sequence[seqIndex]) seqIndex++;
 		if (seqIndex >= sequence.length) {
-			//@ts-ignore
-			window.forceX = true;
+			document.getElementById("devTools")!.classList.toggle("hidden");
 			seqIndex = 0;
 		}
 	});

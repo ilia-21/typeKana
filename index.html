@@ -7,13 +7,13 @@
 		<title>Japanese alphabet practice</title>
 	</head>
 	<body>
-		<div id="content">
+		<div id="content" class="content">
 			<div id="buttonsRow">
 				<p id="startBtn">Start<br />[Enter]</p>
 				<p id="helpBtn">Help</p>
 				<p id="statsBtn">
 					Stats<br />
-					(soon)
+					[F1]
 				</p>
 				<p id="modsBtn">
 					Mods <br />
@@ -55,6 +55,17 @@
 				</p>
 			</div>
 		</div>
+		<div id="statsScreen" class="content hidden">
+			<div id="statsHeader">
+				<div id="statsProfile">
+					<img id="statsPfp" src="https://placehold.co/400" alt="" />
+					<h1 id="statsNickname">username</h1>
+					<p id="statsSlogan">slogan</p>
+				</div>
+				<div id="statsHeatmap"></div>
+			</div>
+			<div id="statsPastRuns">past runs</div>
+		</div>
 		<div id="helpPageContainer" class="hidden">
 			<div id="helpPage">
 				<h1>Wtf is this?</h1>
@@ -80,6 +91,11 @@
 					<input type="number" name="" id="TTSeconds" value="0" />
 				</div>
 			</div>
+		</div>
+		<div id="devTools" class="hidden">
+			<h1>Super secret settings</h1>
+			<p id="devForceAscend">Force ascend</p>
+			<p id="wipeHistory">Wipe history</p>
 		</div>
 		<script type="module" src="/src/main.ts"></script>
 	</body>

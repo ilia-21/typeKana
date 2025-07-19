@@ -1,5 +1,5 @@
 import type { stats } from "./actualTest";
-import { calculateRank, convertCharacter, setScreen } from "./utils";
+import { calculateRank, convertCharacter, Screen, setScreen } from "./utils";
 
 const comboText = document.getElementById("comboText")!;
 const accuracyText = document.getElementById("accuracyText")!;
@@ -36,7 +36,7 @@ export const executeTranscendAnimation = async (stats: stats) => {
 	letterCard.classList.add("transcendedCard");
 	letterCard.style.opacity = "0%";
 	await sleep(2000);
-	setScreen("results");
+	setScreen(Screen.RESULTS);
 	for (const character of Object.keys(stats.characters)) {
 		animateResultsNote(`${convertCharacter("letter", character)}: Perfect`);
 		await sleep(delay);

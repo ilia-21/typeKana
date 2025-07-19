@@ -33,6 +33,7 @@
 	--jap-bg-secondary: var(--base);
 	--jap-accent: var(--blue); /* here comes the customizablity! */
 	--jap-text: var(--text);
+	--jap-heatmapSize: 2.5em;
 }
 body {
 	background-color: var(--jap-bg);
@@ -78,14 +79,22 @@ input[type="checkbox"]:checked::before {
 	text-align: center;
 }
 
-#content,
+.content,
 #resultsScreen {
 	margin: 0 auto;
 	max-width: 960px;
 }
+#resultsScreen {
+	margin: 0 auto;
+	max-width: 960px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100vh;
+}
 #resultsNotes {
 	width: 40%;
-	max-height: 410px;
+	max-height: 80vh;
 	p {
 		margin: 0.2em;
 	}
@@ -93,6 +102,7 @@ input[type="checkbox"]:checked::before {
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
+		max-height: inherit;
 	}
 }
 .alphabet {
@@ -430,4 +440,67 @@ input[type="checkbox"]:checked::before {
 	animation: comboShimmer 2.5s linear infinite, comboPulse 1s infinite ease-in-out, comboTilt 1.5s ease-in-out infinite;
 	text-shadow: 0 0 12px white, 0 0 25px cyan;
 	transform: scale(1.4);
+}
+#statsScreen {
+	display: flex;
+	flex-direction: column;
+	padding-top: 5em;
+}
+#statsHeader {
+	display: flex;
+	align-items: stretch;
+}
+#statsProfile {
+	max-width: 20%;
+	img {
+		max-width: 100%;
+		border-radius: 100%;
+	}
+	h1 {
+		font-weight: bold;
+		font-size: 1.5em;
+	}
+	p {
+		color: var(--subtext-0);
+	}
+}
+#devTools {
+	padding: 1em;
+	position: absolute;
+	top: 1em;
+	left: 1em;
+	min-width: 320px;
+	background: var(--jap-bg-dark);
+	box-shadow: 0px 0px 5px black;
+}
+/* todo: make this table into a grid */
+/* edit:this awas pain... */
+#statsHeatmap {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	flex-grow: 1;
+	div {
+		display: grid;
+		grid-template-columns: repeat(12, var(--jap-heatmapSize));
+		grid-auto-rows: var(--jap-heatmapSize);
+		column-gap: calc(var(--jap-heatmapSize) * 0.25);
+		row-gap: calc(var(--jap-heatmapSize) * 0.25);
+		border-radius: 15%;
+		padding: 1em;
+		div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: calc(var(--jap-heatmapSize) * 0.5);
+			color: var(--crust);
+		}
+	}
+}
+
+.heatmapHeader {
+	border-radius: 3px;
+	border: 1px solid var(--jap-accent);
+	color: var(--text) !important;
 }

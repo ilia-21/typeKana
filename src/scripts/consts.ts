@@ -1176,3 +1176,10 @@ export const mods: { short: mod; title: string; description: string }[] = [
 	{ short: "ZE", title: "Zen", description: "Just type the charactes, forever. Always random" },
 ];
 export const comboMilestones: number[] = [10, 25, 50, 75, 100];
+export const heatmapTemplate: string[][] = [
+	["a", "ka", "sa", "ta", "na", "ha", "ma", "ya", "ra", "wa", "n"],
+	["i", "ki", "shi", "chi", "ni", "hi", "mi", "", "ri", "", ""],
+	["u", "ku", "su", "tsu", "nu", "fu", "mu", "yu", "ru", "", ""],
+	["e", "ke", "se", "te", "ne", "he", "me", "", "re", "", ""],
+	["o", "ko", "so", "to", "no", "ho", "mo", "yo", "ro", "wo", ""],
+];
