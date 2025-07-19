@@ -3,7 +3,7 @@ import { alphabets, changeAlphabetIndex, currentAlphabet, currentAlphabetIndex }
 import { rankPrefix, ranks, rankSuffix } from "./ranks";
 import type { characterPerformance } from "./resultsScreen";
 import { selectedGroups } from "./startPage";
-import { buildStats, type run } from "./statsScreen";
+import { buildStatspage, type run } from "./statsScreen";
 
 export const shuffleArray = (array: any[]) => {
 	let currentIndex = array.length;
@@ -29,7 +29,7 @@ export const setScreen = (screen: Screen) => {
 	currentScreen = screen;
 
 	screenElemets[screen]?.classList.remove("hidden");
-	if (screen == Screen.STATS) buildStats();
+	if (screen == Screen.STATS) buildStatspage();
 };
 export const convertCharacter = (to: "romanji" | "letter", character: string, alphabet?: string): string => {
 	// holy shit this is SO bad
@@ -123,6 +123,17 @@ export const showPopup = (el: HTMLDivElement) => {
 	popupContainer.appendChild(el);
 	popupContainer.children[0].classList.remove("hidden");
 	popupContainer.classList.remove("hidden");
+};
+export const getProfile = (): { pfp: string; nickname: string; slogan: string } => {
+	if (!localStorage.getItem("profile")) localStorage.setItem("profile", JSON.stringify({ pfp: "https://placehold.co/400", nickname: "nickname", slogan: "slogan" }));
+	const profile = JSON.parse(localStorage.getItem("profile") as string);
+	return profile;
+};
+export const updateProfile = (key: "pfp" | "nickname" | "slogan", value: string) => {
+	if (!localStorage.getItem("profile")) localStorage.setItem("profile", JSON.stringify({ pfp: "https://placehold.co/400", nickname: "nickname", slogan: "slogan" }));
+	const profile = JSON.parse(localStorage.getItem("profile") as string);
+	profile[key] = value;
+	localStorage.setItem("profile", JSON.stringify(profile));
 };
 /* const detectTimeTrials = (stats: stats): number | boolean => {
 	// Even if TT wasn't enabled this will check if you had no mistakes and finished in time

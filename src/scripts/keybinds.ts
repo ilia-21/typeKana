@@ -1,5 +1,5 @@
 import { startTest, stats } from "./actualTest";
-import { helpPageContainer, modsPopup } from "./buttons";
+import { modsPopup } from "./buttons";
 import { currentAlphabet } from "./consts";
 import { showResultsScreen } from "./resultsScreen";
 import { currentScreen, generateAlphabetToggleString, Screen, setScreen, switchAlphabet, toggleAll } from "./utils";

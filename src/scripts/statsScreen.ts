@@ -1,7 +1,7 @@
 import type { stats } from "./actualTest";
 import { alphabets, heatmapTemplate } from "./consts";
 import { getColor, normalize, type characterPerformance } from "./resultsScreen";
-import { calculateRank, convertCharacter, loadRuns, showPopup } from "./utils";
+import { calculateRank, convertCharacter, getProfile, loadRuns, showPopup } from "./utils";
 
 export interface run extends stats {
 	// Store pre-calculated performance stats
@@ -61,7 +61,7 @@ const buildHeatmap = (data: heatmapData[], alphabet: string, elementID: string) 
 	heatmapTemplate.forEach((row: string[], i: number) => {
 		if (i == 0) {
 			// top header
-			row.forEach((cell: string, j: number) => {
+			row.forEach((cell: string) => {
 				const td = document.createElement("div");
 				td.classList.add("heatmapHeader");
 				td.innerHTML = cell.charAt(0);
@@ -138,7 +138,7 @@ const clearStats = () => {
 	document.getElementById("statsHeatmap")!.innerHTML = "";
 	document.getElementById("statsRuns")!.innerHTML = "";
 };
-export const buildStats = () => {
+export const buildStatspage = () => {
 	if (!localStorage.getItem("statsInfoSeen")) {
 		showPopup(document.getElementById("statsNotice") as HTMLDivElement);
 		localStorage.setItem("statsInfoSeen", "true");
@@ -149,4 +149,16 @@ export const buildStats = () => {
 	buildHeatmap(calculateHeatmap(data, "hiragana"), "hiragana", "statsHeatmap");
 	buildHeatmap(calculateHeatmap(data, "katakana"), "katakana", "statsHeatmap");
 	data.forEach((e) => drawRun(e));
+	buildProfile();
+};
+const buildProfile = () => {
+	if (localStorage.getItem("profile")) {
+		const profile = getProfile();
+		const pfp = document.getElementById("statsPfp") as HTMLImageElement;
+		pfp.src = profile.pfp;
+		const nickname = document.getElementById("statsNickname") as HTMLInputElement;
+		nickname.value = profile.nickname;
+		const slogan = document.getElementById("statsSlogan") as HTMLInputElement;
+		slogan.value = profile.slogan;
+	}
 };

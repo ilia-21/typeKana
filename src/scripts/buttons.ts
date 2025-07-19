@@ -1,5 +1,5 @@
 import { startTest } from "./actualTest";
-import { generateAlphabetToggleString, Screen, setScreen, showPopup, switchAlphabet } from "./utils";
+import { generateAlphabetToggleString, Screen, setScreen, showPopup, switchAlphabet, updateProfile } from "./utils";
 
 export const helpPageContainer = document.getElementById("helpPage")! as HTMLDivElement;
 export const modsPopup = document.getElementById("modsScreen")! as HTMLDivElement;
@@ -38,5 +38,32 @@ export const setButtons = () => {
 	});
 	document.getElementById("resetStatsPopup")!.addEventListener("click", () => {
 		localStorage.removeItem("statsInfoSeen");
+	});
+	document.getElementById("wipeProfile")!.addEventListener("click", () => {
+		localStorage.removeItem("profile");
+	});
+	document.getElementById("statsPfp")!.addEventListener("click", () => {
+		let input = document.createElement("input");
+		input.type = "file";
+		input.onchange = (_) => {
+			//@ts-ignore
+			const file = input.files[0];
+			const reader = new FileReader();
+			reader.onload = () => {
+				const base64String = reader.result;
+				(document.getElementById("statsPfp")! as HTMLImageElement).src = `` + base64String;
+				updateProfile("pfp", `` + base64String);
+				console.log(base64String);
+			};
+			reader.readAsDataURL(file);
+		};
+		input.click();
+	});
+	document.getElementById("statsNickname")!.addEventListener("change", () => {
+		// Why doesn't e.target work???
+		updateProfile("nickname", (document.getElementById("statsNickname") as HTMLInputElement).value);
+	});
+	document.getElementById("statsSlogan")!.addEventListener("change", () => {
+		updateProfile("slogan", (document.getElementById("statsSlogan") as HTMLInputElement).value);
 	});
 };
