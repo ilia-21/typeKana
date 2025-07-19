@@ -117,6 +117,16 @@ export const storeRun = (stats: stats, performances: characterPerformance[], alp
 	pastRuns.push({ ...stats, performance: performances, alphabet: alphabet });
 	localStorage.setItem("history", JSON.stringify(pastRuns));
 };
+export const deleteRun = (timestamp: number) => {
+	const runs = loadRuns();
+	const newRuns: run[] = [];
+	runs.forEach((r) => {
+		if (r.timestamp != timestamp) {
+			newRuns.push(r);
+		}
+	});
+	localStorage.setItem("history", JSON.stringify(newRuns));
+};
 export const showPopup = (el: HTMLDivElement) => {
 	const popupContainer = document.getElementById("popupContainer")!;
 	popupContainer.innerHTML = "";
