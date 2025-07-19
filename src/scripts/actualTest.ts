@@ -180,8 +180,8 @@ const nextCharacter = () => {
 	}
 
 	// Execute animation early
-	//@ts-ignore
-	if ((currentCharacterID + 1 >= lettersArray.length && calculateRank(stats).startsWith("Ascended")) || window.forceX) {
+
+	if ((currentCharacterID + 1 >= lettersArray.length && calculateRank(stats).string.startsWith("Ascended")) || (window as any).forceX) {
 		executeTranscendAnimation(stats);
 		return;
 	}

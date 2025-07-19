@@ -44,19 +44,21 @@ export const convertCharacter = (to: "romanji" | "letter", character: string, al
 	}
 	return "?";
 };
-export const calculateRank = (stats: stats, rankElement?: HTMLElement) => {
+export const calculateRank = (stats: stats | run, mini?: boolean): { style: string; string: string } => {
 	let finalRank = "";
+	let style = "";
 	for (const r of ranks) {
 		if (r.condition(stats)) {
 			finalRank = r.text;
 			break;
 		}
 	}
+	if (mini) return { style: style, string: finalRank };
 	for (const p of rankPrefix) {
 		if (stats.failed) break;
 		if (p.condition(stats)) {
 			finalRank = `${p.text} ${finalRank}`;
-			rankElement && (rankElement.style = p.style as string);
+			style = p.style as string;
 			break;
 		}
 	}
@@ -71,9 +73,7 @@ export const calculateRank = (stats: stats, rankElement?: HTMLElement) => {
 			break;
 		}
 	}
-
-	rankElement && (rankElement.innerHTML = finalRank);
-	return finalRank;
+	return { style: style, string: finalRank };
 };
 export const toggleAll = () => {
 	// Whatever, just check one character, it doesn't need to be complicated

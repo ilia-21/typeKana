@@ -43,7 +43,9 @@ export const executeTranscendAnimation = async (stats: stats) => {
 		delay = Math.max(200, delay * 0.9);
 	}
 
-	calculateRank(stats, rankText);
+	const rank = calculateRank(stats);
+	rankText.style = rank.style;
+	rankText.innerHTML = rank.string;
 
 	rankText.style.opacity = "100%";
 

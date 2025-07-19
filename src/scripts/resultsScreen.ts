@@ -51,7 +51,9 @@ export const showResultsScreen = (stats: stats) => {
 
 	stats.timestamp = Date.now();
 
-	calculateRank(stats, rankText);
+	const rank = calculateRank(stats);
+	rankText.style = rank.style;
+	rankText.innerHTML = rank.string;
 	if (stats.failed) {
 		addResultNote({ type: "note", text: "You failed" });
 		return;

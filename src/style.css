@@ -474,7 +474,7 @@ input[type="checkbox"]:checked::before {
 	box-shadow: 0px 0px 5px black;
 }
 /* todo: make this table into a grid */
-/* edit:this awas pain... */
+/* edit: this was pain... */
 #statsHeatmap {
 	display: flex;
 	flex-direction: column;
@@ -485,8 +485,8 @@ input[type="checkbox"]:checked::before {
 		display: grid;
 		grid-template-columns: repeat(12, var(--jap-heatmapSize));
 		grid-auto-rows: var(--jap-heatmapSize);
-		column-gap: calc(var(--jap-heatmapSize) * 0.25);
-		row-gap: calc(var(--jap-heatmapSize) * 0.25);
+		column-gap: calc(var(--jap-heatmapSize) * 0.2);
+		row-gap: calc(var(--jap-heatmapSize) * 0.2);
 		border-radius: 15%;
 		padding: 1em;
 		div {
@@ -502,5 +502,60 @@ input[type="checkbox"]:checked::before {
 .heatmapHeader {
 	border-radius: 3px;
 	border: 1px solid var(--jap-accent);
-	color: var(--text) !important;
+	color: var(--jap-text) !important;
+}
+.run {
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	height: 5em;
+	background-color: var(--jap-bg-dark);
+	border-radius: 1em;
+	padding: 1em;
+	margin-top: 2em;
+}
+.runTimestamp,
+.runStats {
+	position: absolute;
+	background-color: var(--surface-1);
+	padding: 0.25em;
+	z-index: -1;
+	border-radius: 5px;
+}
+.runTimestamp {
+	top: -2.5em;
+	left: 1em;
+}
+.runStats {
+	bottom: -2.5em;
+	right: 1em;
+}
+.runDetails {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: center;
+	width: 90%;
+	max-height: 100%;
+	p {
+		margin: 0.25em;
+	}
+}
+.runAlphabet {
+	font-size: 2.5em;
+	margin: 0;
+	border-right: 2px dashed var(--jap-text);
+	width: 5%;
+	padding-right: 1rem;
+	text-align: center;
+}
+.runRank {
+	font-size: 2.5em;
+	margin: 0;
+	border-left: 2px dashed var(--jap-text);
+	width: 5%;
+	padding-left: 1rem;
+	text-align: center;
 }
