@@ -2,7 +2,7 @@ import { alphabets, cheerStrings, comboMilestones, currentAlphabet, type letterP
 import { showResultsScreen } from "./resultsScreen";
 import { selectedGroups } from "./startPage";
 import { executeTranscendAnimation } from "./transcendAimation";
-import { calculateRank, convertCharacter, getRandomElement, Screen, setScreen, shuffleArray } from "./utils";
+import { calculateRank, getRandomElement, Screen, setScreen, shuffleArray } from "./utils";
 
 let lettersArray: letterPair[] = [];
 

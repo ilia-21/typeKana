@@ -8,4 +8,5 @@ Features:
 
 ![](images/main.png)
 ![](images/results.png)
+![](images/profile.png)
 ![](images/test.png)
