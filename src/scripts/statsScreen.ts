@@ -31,7 +31,7 @@ const findWeights = (why: "run" | "heatmapValue" | "heatmapAmount", history: run
 	}
 	let minWeight = Math.min(...weights);
 	// Doing this so the lowest characters don't have completely transparent bg
-	if (why == "heatmapAmount") minWeight = minWeight * 0.95;
+	if (why == "heatmapAmount") minWeight = minWeight * 0.75;
 	const maxWeight = Math.max(...weights);
 	return { max: maxWeight, min: minWeight };
 };
@@ -94,9 +94,9 @@ const buildHeatmap = (data: heatmapData[], alphabet: string, elementID: string) 
 			if (cell != "") {
 				const character = findCharacter(cell, data);
 				color = character ? getColor(character.value) : "var(--surface-2)";
-				color = color.replace(")", `,${character?.amount})`);
+				td.style.transform = `scale(${character ? character.amount : 1})`;
 				td.innerHTML = convertCharacter("letter", cell, alphabet);
-				if (character) td.title = `` + character.value;
+				if (character) td.title = `value:${1 - character.value}, encounter rate:${character.amount}`;
 			}
 			td.style.backgroundColor = color;
 			table.append(td);
