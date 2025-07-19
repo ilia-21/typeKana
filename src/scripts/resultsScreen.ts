@@ -42,6 +42,11 @@ export const getColor = (normalized: number): string => {
 	return `rgb(${r},${g},${b})`;
 };
 export const showResultsScreen = (stats: stats) => {
+	// Zen mod allows stopping at any time. If the run is empty show main screen insteada
+	if (stats.mods.includes("ZE") && stats.longestCombo < 1) {
+		setScreen(Screen.MAIN);
+		return;
+	}
 	// Clear old results
 	resultNotes.children[0].innerHTML = "";
 	resultNotes.children[1].innerHTML = "";
