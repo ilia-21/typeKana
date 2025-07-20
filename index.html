@@ -4,8 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Japanese alphabet practice</title>
-		<script type="module" crossorigin src="./assets/index-CSAxlkD2.js"></script>
-		<link rel="stylesheet" crossorigin href="./assets/index-DxH5OVBN.css">
+		<script type="module" crossorigin src="./assets/index-C8mGo-03.js"></script>
+		<link rel="stylesheet" crossorigin href="./assets/index-K8Kb2PsC.css">
 	</head>
 	<body>
 		<div id="content" class="content">
@@ -26,7 +26,7 @@
 				</p>
 			</div>
 
-			<p id="disclaimer">Disclaimer: I'm still learning, this tool may have mistakes. <span style="color: var(--surface-0)">7d90061</span></p>
+			<p id="disclaimer">Disclaimer: I'm still learning, this tool may have mistakes. <span style="color: var(--surface-0)">fa08421</span></p>
 		</div>
 		<div id="actualTest" class="hidden">
 			<div id="current">
@@ -60,11 +60,25 @@
 			<div id="statsHeader">
 				<div id="statsProfile">
 					<img id="statsPfp" src="https://placehold.co/400" alt="" />
-					<input type="text" id="statsNickname"  class="hiddenInput" value="username"></input>
-					<input type="text" id="statsSlogan" class="hiddenInput" value="slogan (click to edit)"></input>
+					<input type="text" id="statsNickname" class="hiddenInput" value="username" />
+					<input type="text" id="statsSlogan" class="hiddenInput" value="slogan (click to edit)" />
 				</div>
-				<div id="statsHeatmap"></div>
+				<div id="statsDetailed">
+					<div id="statsDetailsNavbar">
+						<p class="statsDataButton" data-id="0">Heatmap</p>
+						<p class="statsDataButton" data-id="1">Graph</p>
+					</div>
+					<div id="statsDetailsData">
+						<div id="statsHeatmap"></div>
+						<div id="statsGraph" class="hidden">
+							<p id="graphY">&lt;-----------Score</p>
+							<canvas id="graph"></canvas>
+							<p id="graphX">More encounters------------------&gt;</p>
+						</div>
+					</div>
+				</div>
 			</div>
+
 			<div id="statsRuns"></div>
 		</div>
 		<div id="popupContainer" class="hidden"></div>
