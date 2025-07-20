@@ -8,5 +8,6 @@ Features:
 
 ![](images/main.png)
 ![](images/results.png)
-![](images/profile.png)
+![](images/profileHeatmap.png)
+![](images/profileGraph.png)
 ![](images/test.png)
