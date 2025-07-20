@@ -2,7 +2,7 @@ import { startTest, stats } from "./actualTest";
 import { modsPopup } from "./buttons";
 import { currentAlphabet } from "./consts";
 import { showResultsScreen } from "./resultsScreen";
-import { currentScreen, generateAlphabetToggleString, Screen, setScreen, switchAlphabet, toggleAll } from "./utils";
+import { currentScreen, generateAlphabetToggleString, Screen, setScreen, showPopup, switchAlphabet, toggleAll } from "./utils";
 
 const sequence: string[] = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 let seqIndex = 0;
@@ -54,7 +54,7 @@ export const setkeybinds = () => {
 						setScreen(Screen.STATS);
 						break;
 					case "F2":
-						modsPopup.classList.toggle("hidden");
+						showPopup(modsPopup);
 						break;
 					// CapsLock to switch alphabets
 					case "CapsLock":
