@@ -65,4 +65,14 @@ export const setButtons = () => {
 	document.getElementById("statsSlogan")!.addEventListener("change", () => {
 		updateProfile("slogan", (document.getElementById("statsSlogan") as HTMLInputElement).value);
 	});
+	document.querySelectorAll(".statsDataButton").forEach((e) => {
+		e.addEventListener("click", (e) => {
+			for (const c of document.getElementById("statsDetailsData")!.children) {
+				c.classList.add("hidden");
+			}
+			console.log(e);
+			//@ts-ignore I have no idea how to use events in tsz`
+			document.getElementById("statsDetailsData")!.children[e!.target.dataset.id].classList.remove("hidden");
+		});
+	});
 };

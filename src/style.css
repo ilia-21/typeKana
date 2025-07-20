@@ -503,11 +503,6 @@ input[type="checkbox"]:checked::before {
 /* todo: make this table into a grid */
 /* edit: this was pain... */
 #statsHeatmap {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-	flex-grow: 1;
 	div {
 		display: grid;
 		grid-template-columns: repeat(12, var(--jap-heatmapSize));
@@ -605,5 +600,41 @@ input[type="checkbox"]:checked::before {
 			font-size: large;
 			margin-bottom: 2em;
 		}
+	}
+}
+#statsGraph {
+	display: grid;
+	justify-content: center;
+	flex-grow: 1;
+	padding: 1em;
+	grid-template-columns: 5% 95%;
+	grid-template-rows: 95% 5%;
+	canvas {
+		border: 1px solid var(--jap-accent);
+	}
+
+	#graphY {
+		text-orientation: sideways;
+		writing-mode: vertical-rl;
+		text-align: end;
+	}
+	#graphX {
+		grid-column-end: 3;
+	}
+}
+#statsDetailed {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	flex-grow: 1;
+}
+#statsDetailsNavbar {
+	height: 10%;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	p {
+		cursor: pointer;
 	}
 }

@@ -9,24 +9,28 @@ export interface run extends stats {
 	alphabet: string;
 }
 interface heatmapData {
+	alphabet: string;
+	data: heatmapEntry[];
+}
+interface heatmapEntry {
 	amount: number;
 	value: number;
 	character: string;
 }
-const findCharacter = (character: string, data: heatmapData[]) => {
-	return data.find((d) => d.character === character);
+const findCharacter = (character: string, data: heatmapData) => {
+	return data.data.find((d) => d.character === character);
 };
-const findWeights = (why: "run" | "heatmapValue" | "heatmapAmount", history: run | heatmapData[]): { max: number; min: number } => {
+const findWeights = (why: "run" | "heatmapValue" | "heatmapAmount", history: run | heatmapData): { max: number; min: number } => {
 	let weights: number[] = [];
 	switch (why) {
 		case "run":
 			weights = weights.concat(...(history as run).performance.map((p) => p.weight));
 			break;
 		case "heatmapValue":
-			weights = weights.concat(...(history as heatmapData[]).map((h) => h.value));
+			weights = weights.concat(...(history as heatmapData).data.map((h) => h.value));
 			break;
 		case "heatmapAmount":
-			weights = weights.concat(...(history as heatmapData[]).map((h) => h.amount));
+			weights = weights.concat(...(history as heatmapData).data.map((h) => h.amount));
 			break;
 	}
 	let minWeight = Math.min(...weights);
@@ -35,8 +39,11 @@ const findWeights = (why: "run" | "heatmapValue" | "heatmapAmount", history: run
 	const maxWeight = Math.max(...weights);
 	return { max: maxWeight, min: minWeight };
 };
-const calculateHeatmap = (history: run[], alphabet: string): heatmapData[] => {
-	const heatmapData: heatmapData[] = [];
+const calculateHeatmap = (history: run[], alphabet: string): heatmapData => {
+	const heatmapData: heatmapData = {
+		alphabet: alphabet,
+		data: [],
+	};
 	history.forEach((run: run) => {
 		if (run.longestCombo == 0) {
 			// clear empty runs
@@ -45,12 +52,12 @@ const calculateHeatmap = (history: run[], alphabet: string): heatmapData[] => {
 		}
 		if (run.alphabet != alphabet) return;
 		run.performance.forEach((character: characterPerformance) => {
-			const existingCharacter = heatmapData.find((data) => data.character === convertCharacter("romanji", character.character, run.alphabet));
+			const existingCharacter = heatmapData.data.find((data) => data.character === convertCharacter("romanji", character.character, run.alphabet));
 			if (existingCharacter) {
 				existingCharacter.amount++;
 				existingCharacter.value += character.weight;
 			} else {
-				heatmapData.push({
+				heatmapData.data.push({
 					amount: 1,
 					value: character.weight,
 					character: convertCharacter("romanji", character.character, run.alphabet),
@@ -60,14 +67,15 @@ const calculateHeatmap = (history: run[], alphabet: string): heatmapData[] => {
 	});
 	const weightsA = findWeights("heatmapValue", heatmapData);
 	const weightsB = findWeights("heatmapAmount", heatmapData);
-	heatmapData.forEach((data: heatmapData) => {
+	heatmapData.data.forEach((data: heatmapEntry) => {
 		data.value = normalize(data.value, weightsA.max, weightsA.min);
 		data.amount = normalize(data.amount, weightsB.max, weightsB.min);
 	});
 	return heatmapData;
 };
-const buildHeatmap = (data: heatmapData[], alphabet: string, elementID: string) => {
+const buildHeatmap = (data: heatmapData, elementID: string) => {
 	const table = document.createElement("div");
+	const alphabet = data.alphabet;
 	//Empty element to shift header
 	table.prepend(document.createElement("div"));
 	heatmapTemplate.forEach((row: string[], i: number) => {
@@ -94,8 +102,10 @@ const buildHeatmap = (data: heatmapData[], alphabet: string, elementID: string) 
 			if (cell != "") {
 				const character = findCharacter(cell, data);
 				color = character ? getColor(character.value) : "var(--surface-2)";
-				td.style.transform = `scale(${character ? character.amount : 1})`;
+				td.style.transform = `scale(${character ? 1 + Math.log10(character.amount) : 1})`;
 				td.innerHTML = convertCharacter("letter", cell, alphabet);
+				if (character?.value == 1) td.style.boxShadow = "0 0 10px var(--red)";
+				if (character?.value == 0) td.style.boxShadow = "0 0 10px var(--green)";
 				if (character) td.title = `value:${1 - character.value}, encounter rate:${character.amount}`;
 			}
 			td.style.backgroundColor = color;
@@ -147,6 +157,23 @@ const drawRun = (run: run) => {
 
 	document.getElementById("statsRuns")!.prepend(runElement);
 };
+const drawGraph = (data: heatmapData[]) => {
+	const graph = document.getElementById("graph") as HTMLCanvasElement;
+	debugger;
+	graph.width = graph.parentElement!.parentElement!.clientWidth;
+	graph.height = graph.width;
+	const ctx = graph.getContext("2d");
+
+	data.forEach((a) => {
+		a.data.forEach((d) => {
+			d.value = 1 - d.value;
+			const x = graph.height * 0.05 + d.amount * graph.width * 0.9;
+			const y = graph.height * 0.05 + (1 - d.value) * graph.height * 0.9;
+			ctx!.fillStyle = getColor((1 - d.value + 1 - d.amount) * 0.5);
+			ctx!.fillText(convertCharacter("letter", d.character, a.alphabet), x, y);
+		});
+	});
+};
 const clearStats = () => {
 	document.getElementById("statsHeatmap")!.innerHTML = "";
 	document.getElementById("statsRuns")!.innerHTML = "";
@@ -158,10 +185,13 @@ export const buildStatspage = () => {
 	}
 	clearStats();
 	const data = loadRuns();
-	buildHeatmap(calculateHeatmap(data, "hiragana"), "hiragana", "statsHeatmap");
-	buildHeatmap(calculateHeatmap(data, "katakana"), "katakana", "statsHeatmap");
+	const hiraganaHeatmap = calculateHeatmap(data, "hiragana");
+	const katakanaHeatmap = calculateHeatmap(data, "katakana");
+	buildHeatmap(hiraganaHeatmap, "statsHeatmap");
+	buildHeatmap(katakanaHeatmap, "statsHeatmap");
 	data.forEach((e) => drawRun(e));
 	buildProfile();
+	drawGraph([hiraganaHeatmap, katakanaHeatmap]);
 };
 const buildProfile = () => {
 	if (localStorage.getItem("profile")) {
