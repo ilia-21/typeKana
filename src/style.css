@@ -636,5 +636,10 @@ input[type="checkbox"]:checked::before {
 	justify-content: space-evenly;
 	p {
 		cursor: pointer;
+		text-align: center;
+		padding: 0.5em 2em;
+	}
+	.selected {
+		border-bottom: 1px solid var(--jap-accent);
 	}
 }

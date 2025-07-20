@@ -70,9 +70,14 @@ export const setButtons = () => {
 			for (const c of document.getElementById("statsDetailsData")!.children) {
 				c.classList.add("hidden");
 			}
-			console.log(e);
-			//@ts-ignore I have no idea how to use events in tsz`
+			//@ts-ignore I have no idea how to use events in ts
 			document.getElementById("statsDetailsData")!.children[e!.target.dataset.id].classList.remove("hidden");
+
+			for (const c of document.getElementById("statsDetailsNavbar")!.children) {
+				c.classList.remove("selected");
+			}
+			//@ts-ignore
+			document.getElementById("statsDetailsNavbar")!.children[e!.target.dataset.id].classList.add("selected");
 		});
 	});
 };
