@@ -101,8 +101,9 @@ const buildHeatmap = (data: heatmapData, elementID: string) => {
 			td.innerHTML = "";
 			if (cell != "") {
 				const character = findCharacter(cell, data);
+				const scale = character ? 1 + Math.log10(character.amount) : 1;
 				color = character ? getColor(character.value) : "var(--surface-2)";
-				td.style.transform = `scale(${character ? 1 + Math.log10(character.amount) : 1})`;
+				td.style.transform = `scale(${Math.max(scale, 0.1)})`;
 				td.innerHTML = convertCharacter("letter", cell, alphabet);
 				if (character?.value == 1) td.style.boxShadow = "0 0 10px var(--red)";
 				if (character?.value == 0) td.style.boxShadow = "0 0 10px var(--green)";
