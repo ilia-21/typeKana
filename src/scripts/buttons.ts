@@ -42,6 +42,9 @@ export const setButtons = () => {
 	document.getElementById("wipeProfile")!.addEventListener("click", () => {
 		localStorage.removeItem("profile");
 	});
+	document.getElementById("exportHistory")!.addEventListener("click", () => {
+		navigator.clipboard.writeText(localStorage.getItem("history") || "[]");
+	});
 	document.getElementById("statsPfp")!.addEventListener("click", () => {
 		let input = document.createElement("input");
 		input.type = "file";
